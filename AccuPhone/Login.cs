@@ -1,7 +1,13 @@
+using BUS;
+using GUI;
+using System.Data;
+using System.Diagnostics;
+
 namespace AccuPhone
 {
     public partial class fLogin : Form
     {
+        BUS_Accountant acc;
         public fLogin()
         {
             InitializeComponent();
@@ -59,6 +65,33 @@ namespace AccuPhone
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
             txtPassword.UseSystemPasswordChar = false;
+        }
+
+        private void bLogin_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine(txtPassword.Text);
+            acc = new BUS_Accountant(0, "", txtUserEmail.Text, "", 0);
+            DataTable account = acc.selectEmail();
+            if(account.Rows.Count > 0)
+            {
+                DataTable passwordQuery = acc.selectPassword();
+                string password = passwordQuery.Rows[0][0].ToString();
+                Debug.WriteLine(password);
+                if (password == txtPassword.Text){
+                    Home home = new Home();
+                    this.Visible = false;
+                    home.ShowDialog();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid password");
+                }
+            }
+            else
+            {
+                MessageBox.Show("The email is not exist");
+            }
         }
     }
 }

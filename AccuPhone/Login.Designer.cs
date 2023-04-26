@@ -135,6 +135,7 @@
             this.bLogin.TabIndex = 8;
             this.bLogin.Text = "LOGIN";
             this.bLogin.UseVisualStyleBackColor = false;
+            this.bLogin.Click += new System.EventHandler(this.bLogin_Click);
             // 
             // pictureBox2
             // 

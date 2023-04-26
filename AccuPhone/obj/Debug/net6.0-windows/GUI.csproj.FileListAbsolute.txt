@@ -16,3 +16,17 @@ D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Deb
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.pdb
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.genruntimeconfig.cache
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\ref\GUI.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\BUS.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\DAL.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\DTO.dll
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\BUS.pdb
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\DAL.pdb
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\DTO.pdb
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.csproj.CopyComplete
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.Home.resources
