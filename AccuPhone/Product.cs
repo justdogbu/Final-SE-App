@@ -16,8 +16,7 @@ namespace GUI
         {
             InitializeComponent();
         }
-
-        Home home = new Home();
+        public event EventHandler DeleteButtonClicked;
         private string _NAME;
         private string _PRICE;
         private string _NUMBER;
@@ -117,7 +116,32 @@ namespace GUI
 
         private void lblRemove_Click(object sender, EventArgs e)
         {
-            home.DeleteProduct(this.Index);
+            if (DeleteButtonClicked != null)
+            {
+                DeleteButtonClicked(this, e);
+            }
         }
+
+        private void txtNum_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPrice_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picPhone_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
