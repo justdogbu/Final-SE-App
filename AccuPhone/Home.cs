@@ -19,7 +19,18 @@ namespace GUI
 
         private void Home_Load(object sender, EventArgs e)
         {
+            
+        }
 
+
+        private void picMenu1_Click(object sender, EventArgs e)
+        {
+            panelMenuBar.Visible = true;
+        }
+
+        private void picMenu2_Click(object sender, EventArgs e)
+        {
+            panelMenuBar.Visible = false;
         }
     }
 }
