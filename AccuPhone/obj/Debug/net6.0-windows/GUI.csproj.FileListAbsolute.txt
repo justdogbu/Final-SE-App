@@ -30,3 +30,4 @@ D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Deb
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\DTO.pdb
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.csproj.CopyComplete
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.Home.resources
+D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.Product.resources
