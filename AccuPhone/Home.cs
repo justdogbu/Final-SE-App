@@ -18,6 +18,7 @@ namespace GUI
         BUS_Accountant acc;
         BUS_Receipt receipt;
         BUS_ReceiptDetails receiptDetails;
+        BUS_WarehouseProducts warehouseProducts;
         private string accountantName, accountantEmail, accountantPassword;
         private int accountantID, warehouseID;
         public Home()
@@ -341,8 +342,21 @@ namespace GUI
                 Control control = fPanelProduct.Controls[i];
                 if(control is Product product)
                 {
-                    receiptDetails = new BUS_ReceiptDetails(id, product.ID, int.Parse(product.Number), product.Price);
+                    int number = int.Parse(product.Number);
+                    receiptDetails = new BUS_ReceiptDetails(id, product.ID, number, product.Price * number);
                     receiptDetails.addQuery();
+
+                    warehouseProducts = new BUS_WarehouseProducts(warehouseID, product.ID, number);
+                    int stock = warehouseProducts.selectQuantity();
+                    if (stock == -1)
+                    {
+                        warehouseProducts.addQuery();
+                    }
+                    else
+                    {
+                        warehouseProducts = new BUS_WarehouseProducts(warehouseID, product.ID, number + stock);
+                        warehouseProducts.updateQuery();
+                    }
                     control.Dispose();
                 }
             }

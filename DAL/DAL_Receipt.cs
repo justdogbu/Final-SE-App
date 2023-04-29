@@ -19,8 +19,6 @@ namespace DAL
             DateTime now = DateTime.Now;
             string dateTime = now.ToString("yyyy-MM-ddTHH:mm:ss.fffffff");
             string dateTime2 = "CAST(N'" + dateTime + "' AS DateTime2)";
-
-
             string querry = "insert into Receipt values (" + receipt._TOTALPRICE + "," + dateTime2 + "," + receipt._ACCOUNTANTID + ")";
             Debug.WriteLine(querry); 
             Connection.actionQuery(querry);
