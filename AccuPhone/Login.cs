@@ -78,7 +78,7 @@ namespace AccuPhone
                 string password = passwordQuery.Rows[0][0].ToString();
                 Debug.WriteLine(password);
                 if (password == txtPassword.Text){
-                    Home home = new Home();
+                    Home home = new Home(txtUserEmail.Text, txtPassword.Text) ;
                     this.Visible = false;
                     home.ShowDialog();
                     this.Close();

@@ -13,6 +13,10 @@ namespace BUS
             acc = new DAL_Accountant(accID, accName, accEmail, accPassword, wareID);
         }
 
+        public BUS_Accountant()
+        {
+        }
+
         public DataTable selectEmail()
         {
             return acc.selectEmail();

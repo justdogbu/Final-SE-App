@@ -31,7 +31,7 @@ namespace DAL
         }
         public DataTable selectName ()
         {
-            string query = "select AccountantName from Accountant where AccountantEmail = '" + acc._ACCOUNTANTEMAIL + "'";
+            string query = "select AcccountantName from Accountant where AccountantEmail = '" + acc._ACCOUNTANTEMAIL + "'";
             return Connection.selectQuery(query);
         }
         public DataTable selectWarehouse()

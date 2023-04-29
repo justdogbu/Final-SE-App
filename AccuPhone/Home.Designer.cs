@@ -67,10 +67,21 @@
             this.bImportIP14 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.picIP14 = new System.Windows.Forms.PictureBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lblSubtotal = new System.Windows.Forms.Label();
+            this.lblShipping = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.bUpdate = new System.Windows.Forms.Button();
             this.bComfirm = new System.Windows.Forms.Button();
             this.fPanelProduct = new System.Windows.Forms.FlowLayoutPanel();
-            this.bBack = new System.Windows.Forms.Button();
             this.panelComfirm = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.bBack = new System.Windows.Forms.Button();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMenu1)).BeginInit();
             this.panelMenuBar.SuspendLayout();
@@ -90,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRN8)).BeginInit();
             this.panelIP14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picIP14)).BeginInit();
+            this.panel5.SuspendLayout();
             this.panelComfirm.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -312,6 +324,7 @@
             // 
             // lblName
             // 
+            this.lblName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Comfortaa", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblName.ForeColor = System.Drawing.Color.White;
@@ -335,7 +348,7 @@
             // 
             // panelImport
             // 
-            this.panelImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panelImport.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panelImport.Controls.Add(this.panel4);
             this.panelImport.Controls.Add(this.panel3);
             this.panelImport.Controls.Add(this.panel2);
@@ -595,48 +608,155 @@
             this.picIP14.TabIndex = 0;
             this.picIP14.TabStop = false;
             // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel5.Controls.Add(this.lblSubtotal);
+            this.panel5.Controls.Add(this.lblShipping);
+            this.panel5.Controls.Add(this.lblTotal);
+            this.panel5.Controls.Add(this.label11);
+            this.panel5.Controls.Add(this.label10);
+            this.panel5.Controls.Add(this.label9);
+            this.panel5.Controls.Add(this.label8);
+            this.panel5.Controls.Add(this.bUpdate);
+            this.panel5.Controls.Add(this.bComfirm);
+            this.panel5.Location = new System.Drawing.Point(893, 116);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(321, 391);
+            this.panel5.TabIndex = 5;
+            // 
+            // lblSubtotal
+            // 
+            this.lblSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSubtotal.AutoSize = true;
+            this.lblSubtotal.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblSubtotal.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblSubtotal.Location = new System.Drawing.Point(208, 233);
+            this.lblSubtotal.Name = "lblSubtotal";
+            this.lblSubtotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblSubtotal.Size = new System.Drawing.Size(87, 32);
+            this.lblSubtotal.TabIndex = 14;
+            this.lblSubtotal.Text = "$NULL";
+            this.lblSubtotal.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblShipping
+            // 
+            this.lblShipping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblShipping.AutoSize = true;
+            this.lblShipping.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblShipping.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblShipping.Location = new System.Drawing.Point(256, 127);
+            this.lblShipping.Name = "lblShipping";
+            this.lblShipping.Size = new System.Drawing.Size(39, 32);
+            this.lblShipping.TabIndex = 13;
+            this.lblShipping.Text = "$0";
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblTotal.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblTotal.Location = new System.Drawing.Point(208, 76);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblTotal.Size = new System.Drawing.Size(87, 32);
+            this.lblTotal.TabIndex = 12;
+            this.lblTotal.Text = "$NULL";
+            this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label11.Location = new System.Drawing.Point(31, 233);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(106, 32);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "Subtotal";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label10.Location = new System.Drawing.Point(31, 127);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(110, 32);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Shipping";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label9.Location = new System.Drawing.Point(31, 76);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(66, 32);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Total";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Comfortaa", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label8.Location = new System.Drawing.Point(31, 19);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(130, 36);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Summary";
+            // 
+            // bUpdate
+            // 
+            this.bUpdate.BackColor = System.Drawing.Color.DarkOrange;
+            this.bUpdate.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bUpdate.FlatAppearance.BorderSize = 2;
+            this.bUpdate.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bUpdate.ForeColor = System.Drawing.Color.White;
+            this.bUpdate.Location = new System.Drawing.Point(45, 320);
+            this.bUpdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bUpdate.Name = "bUpdate";
+            this.bUpdate.Size = new System.Drawing.Size(111, 56);
+            this.bUpdate.TabIndex = 8;
+            this.bUpdate.Text = "Update";
+            this.bUpdate.UseVisualStyleBackColor = false;
+            this.bUpdate.Click += new System.EventHandler(this.bUpdate_Click);
+            // 
             // bComfirm
             // 
             this.bComfirm.BackColor = System.Drawing.Color.Green;
             this.bComfirm.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bComfirm.FlatAppearance.BorderSize = 2;
             this.bComfirm.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bComfirm.Location = new System.Drawing.Point(985, 495);
+            this.bComfirm.ForeColor = System.Drawing.Color.White;
+            this.bComfirm.Location = new System.Drawing.Point(173, 320);
             this.bComfirm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bComfirm.Name = "bComfirm";
-            this.bComfirm.Size = new System.Drawing.Size(98, 52);
-            this.bComfirm.TabIndex = 6;
+            this.bComfirm.Size = new System.Drawing.Size(111, 56);
+            this.bComfirm.TabIndex = 7;
             this.bComfirm.Text = "Confirm";
             this.bComfirm.UseVisualStyleBackColor = false;
-            this.bComfirm.Click += new System.EventHandler(this.bComfirm_Click);
+            this.bComfirm.Click += new System.EventHandler(this.bComfirm_Click_1);
             // 
             // fPanelProduct
             // 
-            this.fPanelProduct.Location = new System.Drawing.Point(311, 96);
+            this.fPanelProduct.Location = new System.Drawing.Point(312, 116);
             this.fPanelProduct.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.fPanelProduct.Name = "fPanelProduct";
-            this.fPanelProduct.Size = new System.Drawing.Size(575, 587);
+            this.fPanelProduct.Size = new System.Drawing.Size(575, 544);
             this.fPanelProduct.TabIndex = 5;
-            // 
-            // bBack
-            // 
-            this.bBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bBack.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.bBack.FlatAppearance.BorderSize = 2;
-            this.bBack.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bBack.Location = new System.Drawing.Point(880, 495);
-            this.bBack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bBack.Name = "bBack";
-            this.bBack.Size = new System.Drawing.Size(98, 52);
-            this.bBack.TabIndex = 5;
-            this.bBack.Text = "Back";
-            this.bBack.UseVisualStyleBackColor = false;
-            this.bBack.Click += new System.EventHandler(this.bBack_Click);
             // 
             // panelComfirm
             // 
+            this.panelComfirm.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelComfirm.Controls.Add(this.label7);
+            this.panelComfirm.Controls.Add(this.label6);
             this.panelComfirm.Controls.Add(this.bBack);
-            this.panelComfirm.Controls.Add(this.bComfirm);
+            this.panelComfirm.Controls.Add(this.panel5);
             this.panelComfirm.Controls.Add(this.fPanelProduct);
             this.panelComfirm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelComfirm.Location = new System.Drawing.Point(0, 0);
@@ -644,6 +764,45 @@
             this.panelComfirm.Name = "panelComfirm";
             this.panelComfirm.Size = new System.Drawing.Size(1280, 720);
             this.panelComfirm.TabIndex = 5;
+            this.panelComfirm.Paint += new System.Windows.Forms.PaintEventHandler(this.panelComfirm_Paint);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(148)))), ((int)(((byte)(239)))));
+            this.label7.Location = new System.Drawing.Point(418, 71);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(159, 32);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Receipt Detail";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label6.Location = new System.Drawing.Point(312, 71);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 32);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Import /";
+            // 
+            // bBack
+            // 
+            this.bBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.bBack.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bBack.FlatAppearance.BorderSize = 2;
+            this.bBack.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bBack.ForeColor = System.Drawing.Color.White;
+            this.bBack.Location = new System.Drawing.Point(268, 660);
+            this.bBack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bBack.Name = "bBack";
+            this.bBack.Size = new System.Drawing.Size(111, 54);
+            this.bBack.TabIndex = 6;
+            this.bBack.Text = "Back";
+            this.bBack.UseVisualStyleBackColor = false;
+            this.bBack.Click += new System.EventHandler(this.bBack_Click_1);
             // 
             // Home
             // 
@@ -654,8 +813,8 @@
             this.ClientSize = new System.Drawing.Size(1280, 720);
             this.Controls.Add(this.panelMenuBar);
             this.Controls.Add(this.panelHeader);
-            this.Controls.Add(this.panelImport);
             this.Controls.Add(this.panelComfirm);
+            this.Controls.Add(this.panelImport);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Home";
             this.Text = "Home";
@@ -685,7 +844,10 @@
             this.panelIP14.ResumeLayout(false);
             this.panelIP14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picIP14)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.panelComfirm.ResumeLayout(false);
+            this.panelComfirm.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -733,7 +895,18 @@
         private PictureBox picIP14;
         private Panel panelComfirm;
         private FlowLayoutPanel fPanelProduct;
+        private Panel panel5;
+        private Button bUpdate;
         private Button bComfirm;
         private Button bBack;
+        private Label label7;
+        private Label label6;
+        private Label lblSubtotal;
+        private Label lblShipping;
+        private Label lblTotal;
+        private Label label11;
+        private Label label10;
+        private Label label9;
+        private Label label8;
     }
 }

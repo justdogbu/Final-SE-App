@@ -205,7 +205,7 @@ namespace GUI.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap images_kv_en_purple_mo_1_png {
             get {
-                object obj = ResourceManager.GetObject("images-kv-en-purple-mo-1.png", resourceCulture);
+                object obj = ResourceManager.GetObject("images_kv_en_purple_mo_1_png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -345,7 +345,7 @@ namespace GUI.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap redmi_note_8 {
             get {
-                object obj = ResourceManager.GetObject("redmi note 8", resourceCulture);
+                object obj = ResourceManager.GetObject("redmi_note_8", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -355,7 +355,7 @@ namespace GUI.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap xiaomi_13 {
             get {
-                object obj = ResourceManager.GetObject("xiaomi 13", resourceCulture);
+                object obj = ResourceManager.GetObject("xiaomi_13", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

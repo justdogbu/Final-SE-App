@@ -18,10 +18,12 @@ namespace GUI
         }
         public event EventHandler DeleteButtonClicked;
         private string _NAME;
-        private string _PRICE;
+        private int _PRICE;
         private string _NUMBER;
         private int _INDEX;
         private Image _ICON;
+        private int _ID;
+
 
         public string Name
         {
@@ -38,7 +40,7 @@ namespace GUI
 
         
 
-        public string Price
+        public int Price
         {
             get
             {
@@ -47,7 +49,7 @@ namespace GUI
             set
             {
                 _PRICE = value;
-                lblPrice.Text = value;
+                lblPrice.Text = "$" + Price.ToString();
             }
         }
 
@@ -89,6 +91,20 @@ namespace GUI
             }
         }
 
+        public int ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                _ID = value;
+            }
+        }
+
+
+
         private void txtNum_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -102,6 +118,7 @@ namespace GUI
             int number = int.Parse(txtNum.Text);
             number += 1;
             txtNum.Text = number.ToString();
+            this.Number = number.ToString();
         }
 
         private void picMinus_Click(object sender, EventArgs e)
@@ -111,6 +128,7 @@ namespace GUI
             {
                 number -= 1;
                 txtNum.Text = number.ToString();
+                this.Number = number.ToString();
             }
         }
 
@@ -124,7 +142,7 @@ namespace GUI
 
         private void txtNum_TextChanged(object sender, EventArgs e)
         {
-
+            this.Number = txtNum.Text;
         }
 
         private void lblPrice_Click(object sender, EventArgs e)
