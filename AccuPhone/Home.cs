@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,11 @@ namespace GUI
 {
     public partial class Home : Form
     {
+        BUS_ExportReceiptDetails exportReceiptDetails;
+        BUS_ExportReceipt exportReceipt;
+        BUS_ResellerImportReceiptDetails resellerReceiptDetails;
+        BUS_Reseller reseller;
+        BUS_ResellerImportReceipt resellerBill;
         BUS_Accountant acc;
         BUS_Receipt receipt;
         BUS_ReceiptDetails receiptDetails;
@@ -44,7 +51,9 @@ namespace GUI
             panelButtonI.Visible = false;
             panelButtonR.Visible = false;
             panelImport.Visible = false;
-            panelComfirm.Visible = true;
+            panelComfirm.Visible = false;
+            panelEDetails.Visible = false;
+
         }
 
 
@@ -88,7 +97,10 @@ namespace GUI
             panelButtonR.Visible = false;
 
             panelComfirm.Visible = false;
+            panelExport.Visible = false;
             panelImport.Visible = true;
+            panelEDetails.Visible = false;
+
         }
 
         private void bExport_Click(object sender, EventArgs e)
@@ -97,6 +109,13 @@ namespace GUI
             panelButtonE.Visible = true;
             panelButtonI.Visible = false;
             panelButtonR.Visible = false;
+
+            fBillDetails.Controls.Clear();
+            panelComfirm.Visible = false;
+            panelImport.Visible = false;
+            panelExport.Visible = true;
+            panelEDetails.Visible = false;
+            loadImportBill("Default");
         }
 
         private void bReceipts_Click(object sender, EventArgs e)
@@ -119,6 +138,7 @@ namespace GUI
         private void bImportIP14_Click(object sender, EventArgs e)
         {
             panelImport.Visible = false;
+            panelExport.Visible = false;
             panelComfirm.Visible = true;
 
             foreach (Control control in fPanelProduct.Controls)
@@ -151,6 +171,7 @@ namespace GUI
         private void bImportRN8_Click_1(object sender, EventArgs e)
         {
             panelImport.Visible = false;
+            panelExport.Visible = false;
             panelComfirm.Visible = true;
             foreach (Control control in fPanelProduct.Controls)
             {
@@ -318,6 +339,11 @@ namespace GUI
             updateTotal();
         }
 
+        private void panelExport_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void updateTotal()
         {
             int total = 0;
@@ -333,6 +359,12 @@ namespace GUI
 
             lblTotal.Text = "$" + total.ToString();
             lblSubtotal.Text = "$" + total.ToString();
+        }
+
+        private void cbSorting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = cbSorting.SelectedItem.ToString();
+            loadImportBill(selectedValue);
         }
 
         private void clearCart(int id)
@@ -361,8 +393,222 @@ namespace GUI
                 }
             }
         }
+
+        private void loadImportBill(string state)
+        {
+            fExport.Controls.Clear();
+            resellerBill = new BUS_ResellerImportReceipt(0, 0);
+            DataTable table = null;
+
+            if (state == "Default")
+            {
+                cbSorting.Text = "Default";
+                table = resellerBill.selectReceipt();
+            }
+            else if(state == "Descending by Date")
+            {
+                table = resellerBill.sortDateDesc();
+            }
+            else if (state == "Ascending by Date")
+            {
+                table = resellerBill.sortDateAsc();
+            }
+            else if(state == "Descending by Price")
+            {
+                table = resellerBill.sortPriceDesc();
+            }
+            else if(state == "Ascending by Price")
+            {
+                table = resellerBill.sortPriceAsc();
+            }
+
+            if (table != null)
+            {
+                int number = resellerBill.countReceipt();
+                int billID;
+                int totalPrice;
+                DateTime date;
+                int resellerID;
+                string resellerName;
+                for (int i = 0; i < number; i++)
+                {
+                    billID = (int)table.Rows[i][0];
+                    totalPrice = (int)table.Rows[i][1];
+                    date = (DateTime)table.Rows[i][2];
+                    resellerID = (int)table.Rows[i][5];
+                    Debug.WriteLine(billID + " " + totalPrice + " " + date + " " + resellerID);
+                    Bill bill = new Bill();
+                    bill._BILLID = billID;
+                    bill._TOTAL = totalPrice;
+                    bill._DATE = date;
+                    reseller = new BUS_Reseller(resellerID);
+                    bill._RESELLERNAME = reseller.getShopname();
+                    bill.ApproveButtonClicked += UserControl_ApproveButtonClicked;
+                    bill.Margin = new Padding(10, 10, 35, 35);
+
+                    fExport.Controls.Add(bill);
+                    Debug.WriteLine(fExport.Controls.Count);
+                }
+            }
+            
+        }
+
+        private void bBackExport_Click(object sender, EventArgs e)
+        {
+            fBillDetails.Controls.Clear();
+            panelExport.Visible = true;
+            panelEDetails.Visible = false;
+            loadImportBill("Default");
+        }
+
+        private void bApproveExport_Click(object sender, EventArgs e)
+        {
+            if (!isSufficient())
+            {
+                MessageBox.Show("Insufficient");
+            }
+            else
+            {
+                int exportReceiptID = createExportReceipt();
+                insertExportReceiptDetails(exportReceiptID);
+                loadImportBill("Default");
+
+                lblTotal.Text = "$NULL";
+                lblSubtotal.Text = "$NULL";
+
+                panelEDetails.Visible = false;
+                panelExport.Visible = true;
+            }
+        }
+
+        private void loadBillDetails(int billID)
+        {
+            panelExport.Visible = false;
+            panelEDetails.Visible = true;
+
+            fBillDetails.Controls.Clear();
+            resellerReceiptDetails = new BUS_ResellerImportReceiptDetails(billID);
+            int num = resellerReceiptDetails.countReceipt();
+            DataTable table = resellerReceiptDetails.selectReceipt();
+            foreach(DataRow row in table.Rows)
+            {
+                BillDetails billDetails = new BillDetails();
+                int phoneID = (int) row[1];
+                int quantity = (int) row[2];
+                int price = (int) row[3];
+                switch (phoneID)
+                {
+                    case 1:
+                        billDetails.Icon = Resources.ip14;
+                        billDetails.Name = "iPhone 14";
+                        break;
+                    case 2:
+                        billDetails.Icon = Resources.redmi_note_8;
+                        billDetails.Name = "Redmi Note 8";
+                        break;
+                    case 3:
+                        billDetails.Icon = Resources.xiaomi_13;
+                        billDetails.Name = "Xiaomi 13";
+                        break;
+                    case 4:
+                        billDetails.Icon = Resources.a343;
+                        billDetails.Name = "Samsung Galaxy A34";
+                        break;
+                    case 5:
+                        billDetails.Icon = Resources.images_kv_en_purple_mo_1_png;
+                        billDetails.Name = "OPPO Find N2 Flip";
+                        break;
+                }
+                billDetails.BillID = billID;
+                billDetails.Number = quantity;
+                billDetails.Price = price;
+                billDetails.ID = phoneID;
+                
+                fBillDetails.Controls.Add(billDetails);
+            }
+
+            updateExportTotal();
+        }
+
+        private void UserControl_ApproveButtonClicked(object sender, EventArgs e)
+        {
+            Bill control = sender as Bill;
+            if (control != null)
+            {
+                loadBillDetails(control._BILLID);
+            }
+        }
         private void panelComfirm_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void updateExportTotal()
+        {
+            int total = 0;
+            foreach (Control control in fBillDetails.Controls)
+            {
+                if (control is BillDetails bill && bill.Number > 0)
+                {
+                    Debug.WriteLine(bill.Number);
+                    int sum = bill.Price * bill.Number;
+                    total += sum;
+                }
+            }
+
+            lblTotalExport.Text = total.ToString("C");
+            lblSubTotalExport.Text = total.ToString("C");
+        }
+
+        private bool isSufficient()
+        {
+            foreach(Control control in fBillDetails.Controls){
+                if(control is BillDetails bill && bill.Number > 0)
+                {
+                    warehouseProducts = new BUS_WarehouseProducts(warehouseID, bill.ID, 0);
+                    int quantity = warehouseProducts.selectQuantity();
+                    if(bill.Number > quantity)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private int createExportReceipt()
+        {
+            exportReceipt = new BUS_ExportReceipt(0, 0, "", 0);
+            int id = exportReceipt.getReceiptID();
+            decimal totalDecimal = decimal.Parse(lblTotalExport.Text, NumberStyles.Currency);
+            int totalInt = Decimal.ToInt32(totalDecimal);
+            Debug.WriteLine(accountantID);
+            Debug.WriteLine(accountantName);
+            Debug.WriteLine(id + " " + totalInt + " " + accountantID);
+            exportReceipt = new BUS_ExportReceipt(id, totalInt, "", accountantID);
+            exportReceipt.addQuery();
+            return id;
+        }
+
+        private void insertExportReceiptDetails(int id)
+        {
+            int resellerImportID = 0;
+            foreach (Control control in fBillDetails.Controls)
+            {
+                if (control is BillDetails bill && bill.Number > 0)
+                {
+                    resellerImportID = bill.BillID;
+
+                    warehouseProducts = new BUS_WarehouseProducts(warehouseID, bill.ID, bill.Number);
+                    warehouseProducts.updateQuantity();
+
+                    exportReceiptDetails = new BUS_ExportReceiptDetails(id, bill.ID, bill.Number, bill.Price);
+                    exportReceiptDetails.addQuery();
+                }
+            }
+
+            resellerBill = new BUS_ResellerImportReceipt(resellerImportID, 0);
+            resellerBill.updateStatus();
 
         }
     }

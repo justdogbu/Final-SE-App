@@ -32,6 +32,11 @@ namespace BUS
             warehouseProducts.updateQuery();
         }
 
+        public void updateQuantity()
+        {
+            warehouseProducts.updateQuantity();
+        }
+
         public int selectQuantity()
         {
             DataTable table = warehouseProducts.selectQuantity();

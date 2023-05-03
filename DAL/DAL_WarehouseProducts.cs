@@ -33,10 +33,16 @@ namespace DAL
 
         public DataTable selectQuantity()
         {
-            string query = "select Quantity from WarehouseProducts where WarehouseId = " + warehouseProducts._WAREHOUSEID + "and PhoneId = " + warehouseProducts._PHONEID;
+            string query = "select Quantity from WarehouseProducts where WarehouseId = " + warehouseProducts._WAREHOUSEID + " and PhoneId = " + warehouseProducts._PHONEID;
             Debug.WriteLine(query);
             return Connection.selectQuery(query);
         }
 
+        public void updateQuantity()
+        {
+            string query = "update WarehouseProducts set Quantity = Quantity - " + warehouseProducts._QUANTITY + " where WarehouseId = " + warehouseProducts._WAREHOUSEID + " and PhoneId = " + warehouseProducts._PHONEID;
+            Debug.WriteLine(query);
+            Connection.actionQuery(query);
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace GUI
         {
             InitializeComponent();
         }
+
         public event EventHandler DeleteButtonClicked;
         private string _NAME;
         private int _PRICE;

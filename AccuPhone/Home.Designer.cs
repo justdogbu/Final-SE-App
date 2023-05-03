@@ -82,6 +82,27 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.bBack = new System.Windows.Forms.Button();
+            this.panelExport = new System.Windows.Forms.Panel();
+            this.fExport = new System.Windows.Forms.FlowLayoutPanel();
+            this.cbSorting = new System.Windows.Forms.ComboBox();
+            this.panelEDetails = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.bBackExport = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.lblTotalExport = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.lblSubTotalExport = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.bApproveExport = new System.Windows.Forms.Button();
+            this.fBillDetails = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelDashboard = new System.Windows.Forms.Panel();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMenu1)).BeginInit();
             this.panelMenuBar.SuspendLayout();
@@ -103,6 +124,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.picIP14)).BeginInit();
             this.panel5.SuspendLayout();
             this.panelComfirm.SuspendLayout();
+            this.panelExport.SuspendLayout();
+            this.panelEDetails.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -795,14 +819,283 @@
             this.bBack.FlatAppearance.BorderSize = 2;
             this.bBack.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bBack.ForeColor = System.Drawing.Color.White;
-            this.bBack.Location = new System.Drawing.Point(268, 660);
+            this.bBack.Location = new System.Drawing.Point(267, 660);
             this.bBack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bBack.Name = "bBack";
-            this.bBack.Size = new System.Drawing.Size(111, 54);
+            this.bBack.Size = new System.Drawing.Size(111, 53);
             this.bBack.TabIndex = 6;
             this.bBack.Text = "Back";
             this.bBack.UseVisualStyleBackColor = false;
             this.bBack.Click += new System.EventHandler(this.bBack_Click_1);
+            // 
+            // panelExport
+            // 
+            this.panelExport.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelExport.Controls.Add(this.fExport);
+            this.panelExport.Controls.Add(this.cbSorting);
+            this.panelExport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelExport.Location = new System.Drawing.Point(0, 0);
+            this.panelExport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelExport.Name = "panelExport";
+            this.panelExport.Size = new System.Drawing.Size(1280, 720);
+            this.panelExport.TabIndex = 9;
+            this.panelExport.Paint += new System.Windows.Forms.PaintEventHandler(this.panelExport_Paint);
+            // 
+            // fExport
+            // 
+            this.fExport.AutoScroll = true;
+            this.fExport.Location = new System.Drawing.Point(312, 155);
+            this.fExport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.fExport.Name = "fExport";
+            this.fExport.Size = new System.Drawing.Size(913, 497);
+            this.fExport.TabIndex = 7;
+            // 
+            // cbSorting
+            // 
+            this.cbSorting.FormattingEnabled = true;
+            this.cbSorting.Items.AddRange(new object[] {
+            "Default",
+            "Descending by Date",
+            "Ascending by Date",
+            "Descending by Price",
+            "Ascending by Price"});
+            this.cbSorting.Location = new System.Drawing.Point(1074, 116);
+            this.cbSorting.Name = "cbSorting";
+            this.cbSorting.Size = new System.Drawing.Size(151, 28);
+            this.cbSorting.TabIndex = 6;
+            this.cbSorting.SelectedIndexChanged += new System.EventHandler(this.cbSorting_SelectedIndexChanged);
+            // 
+            // panelEDetails
+            // 
+            this.panelEDetails.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelEDetails.Controls.Add(this.label12);
+            this.panelEDetails.Controls.Add(this.label13);
+            this.panelEDetails.Controls.Add(this.bBackExport);
+            this.panelEDetails.Controls.Add(this.panel7);
+            this.panelEDetails.Controls.Add(this.fBillDetails);
+            this.panelEDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelEDetails.Location = new System.Drawing.Point(0, 0);
+            this.panelEDetails.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelEDetails.Name = "panelEDetails";
+            this.panelEDetails.Size = new System.Drawing.Size(1280, 720);
+            this.panelEDetails.TabIndex = 6;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(148)))), ((int)(((byte)(239)))));
+            this.label12.Location = new System.Drawing.Point(418, 71);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(159, 32);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Receipt Detail";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label13.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label13.Location = new System.Drawing.Point(312, 71);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(99, 32);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "Export /";
+            // 
+            // bBackExport
+            // 
+            this.bBackExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.bBackExport.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bBackExport.FlatAppearance.BorderSize = 2;
+            this.bBackExport.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bBackExport.ForeColor = System.Drawing.Color.White;
+            this.bBackExport.Location = new System.Drawing.Point(267, 660);
+            this.bBackExport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bBackExport.Name = "bBackExport";
+            this.bBackExport.Size = new System.Drawing.Size(111, 53);
+            this.bBackExport.TabIndex = 6;
+            this.bBackExport.Text = "Back";
+            this.bBackExport.UseVisualStyleBackColor = false;
+            this.bBackExport.Click += new System.EventHandler(this.bBackExport_Click);
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel7.Controls.Add(this.lblTotalExport);
+            this.panel7.Controls.Add(this.label22);
+            this.panel7.Controls.Add(this.lblSubTotalExport);
+            this.panel7.Controls.Add(this.label14);
+            this.panel7.Controls.Add(this.label15);
+            this.panel7.Controls.Add(this.label16);
+            this.panel7.Controls.Add(this.label17);
+            this.panel7.Controls.Add(this.label18);
+            this.panel7.Controls.Add(this.label19);
+            this.panel7.Controls.Add(this.label20);
+            this.panel7.Controls.Add(this.bApproveExport);
+            this.panel7.Location = new System.Drawing.Point(893, 116);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(321, 391);
+            this.panel7.TabIndex = 5;
+            // 
+            // lblTotalExport
+            // 
+            this.lblTotalExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalExport.AutoSize = true;
+            this.lblTotalExport.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblTotalExport.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblTotalExport.Location = new System.Drawing.Point(197, 76);
+            this.lblTotalExport.Name = "lblTotalExport";
+            this.lblTotalExport.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblTotalExport.Size = new System.Drawing.Size(87, 32);
+            this.lblTotalExport.TabIndex = 17;
+            this.lblTotalExport.Text = "$NULL";
+            this.lblTotalExport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label22
+            // 
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label22.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label22.Location = new System.Drawing.Point(245, 132);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(39, 32);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "$0";
+            // 
+            // lblSubTotalExport
+            // 
+            this.lblSubTotalExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSubTotalExport.AutoSize = true;
+            this.lblSubTotalExport.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblSubTotalExport.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblSubTotalExport.Location = new System.Drawing.Point(197, 233);
+            this.lblSubTotalExport.Name = "lblSubTotalExport";
+            this.lblSubTotalExport.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblSubTotalExport.Size = new System.Drawing.Size(87, 32);
+            this.lblSubTotalExport.TabIndex = 15;
+            this.lblSubTotalExport.Text = "$NULL";
+            this.lblSubTotalExport.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label14.Location = new System.Drawing.Point(329, 233);
+            this.label14.Name = "label14";
+            this.label14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label14.Size = new System.Drawing.Size(87, 32);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "$NULL";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label15.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label15.Location = new System.Drawing.Point(377, 127);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(39, 32);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "$0";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label16.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label16.Location = new System.Drawing.Point(329, 76);
+            this.label16.Name = "label16";
+            this.label16.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label16.Size = new System.Drawing.Size(87, 32);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "$NULL";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label17.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label17.Location = new System.Drawing.Point(31, 233);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(106, 32);
+            this.label17.TabIndex = 11;
+            this.label17.Text = "Subtotal";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label18.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label18.Location = new System.Drawing.Point(31, 127);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(110, 32);
+            this.label18.TabIndex = 10;
+            this.label18.Text = "Shipping";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label19.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label19.Location = new System.Drawing.Point(31, 76);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(66, 32);
+            this.label19.TabIndex = 9;
+            this.label19.Text = "Total";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.BackColor = System.Drawing.Color.Transparent;
+            this.label20.Font = new System.Drawing.Font("Comfortaa", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label20.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label20.Location = new System.Drawing.Point(31, 19);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(130, 36);
+            this.label20.TabIndex = 9;
+            this.label20.Text = "Summary";
+            // 
+            // bApproveExport
+            // 
+            this.bApproveExport.BackColor = System.Drawing.Color.Green;
+            this.bApproveExport.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bApproveExport.FlatAppearance.BorderSize = 2;
+            this.bApproveExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bApproveExport.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bApproveExport.ForeColor = System.Drawing.Color.White;
+            this.bApproveExport.Location = new System.Drawing.Point(31, 320);
+            this.bApproveExport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bApproveExport.Name = "bApproveExport";
+            this.bApproveExport.Size = new System.Drawing.Size(253, 56);
+            this.bApproveExport.TabIndex = 7;
+            this.bApproveExport.Text = "Approve";
+            this.bApproveExport.UseVisualStyleBackColor = false;
+            this.bApproveExport.Click += new System.EventHandler(this.bApproveExport_Click);
+            // 
+            // fBillDetails
+            // 
+            this.fBillDetails.Location = new System.Drawing.Point(312, 116);
+            this.fBillDetails.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.fBillDetails.Name = "fBillDetails";
+            this.fBillDetails.Size = new System.Drawing.Size(575, 544);
+            this.fBillDetails.TabIndex = 5;
+            // 
+            // panelDashboard
+            // 
+            this.panelDashboard.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDashboard.Location = new System.Drawing.Point(0, 0);
+            this.panelDashboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelDashboard.Name = "panelDashboard";
+            this.panelDashboard.Size = new System.Drawing.Size(1280, 720);
+            this.panelDashboard.TabIndex = 16;
             // 
             // Home
             // 
@@ -813,6 +1106,9 @@
             this.ClientSize = new System.Drawing.Size(1280, 720);
             this.Controls.Add(this.panelMenuBar);
             this.Controls.Add(this.panelHeader);
+            this.Controls.Add(this.panelDashboard);
+            this.Controls.Add(this.panelEDetails);
+            this.Controls.Add(this.panelExport);
             this.Controls.Add(this.panelComfirm);
             this.Controls.Add(this.panelImport);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -848,6 +1144,11 @@
             this.panel5.PerformLayout();
             this.panelComfirm.ResumeLayout(false);
             this.panelComfirm.PerformLayout();
+            this.panelExport.ResumeLayout(false);
+            this.panelEDetails.ResumeLayout(false);
+            this.panelEDetails.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -908,5 +1209,26 @@
         private Label label10;
         private Label label9;
         private Label label8;
+        private Panel panelExport;
+        private ComboBox cbSorting;
+        private FlowLayoutPanel fExport;
+        private Panel panelEDetails;
+        private Label label12;
+        private Label label13;
+        private Button bBackExport;
+        private Panel panel7;
+        private Label label14;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private Label label19;
+        private Label label20;
+        private Button bApproveExport;
+        private FlowLayoutPanel fBillDetails;
+        private Label lblTotalExport;
+        private Label label22;
+        private Label lblSubTotalExport;
+        private Panel panelDashboard;
     }
 }
