@@ -34,9 +34,6 @@ D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Deb
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.ImportBill.resources
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.Bill.resources
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\obj\Debug\net6.0-windows\GUI.BillDetails.resources
-D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\LiveCharts.dll
-D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\LiveCharts.WinForms.dll
-D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\LiveCharts.Wpf.dll
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\HarfBuzzSharp.dll
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\LiveChartsCore.dll
 D:\Study\TDTU\Software Engineering\Final App Project\AccuPhone\AccuPhone\bin\Debug\net6.0-windows\LiveChartsCore.SkiaSharpView.dll

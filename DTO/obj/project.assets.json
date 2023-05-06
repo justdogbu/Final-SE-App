@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\maigi\\.nuget\\packages\\": {}
+    "C:\\Users\\taing\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Study\\TDTU\\Software Engineering\\Final App Project\\AccuPhone\\DTO\\DTO.csproj",
+      "projectUniqueName": "C:\\Users\\taing\\Desktop\\Semester 2 22-23\\FinalSEApp\\Final-SE-App\\DTO\\DTO.csproj",
       "projectName": "DTO",
-      "projectPath": "D:\\Study\\TDTU\\Software Engineering\\Final App Project\\AccuPhone\\DTO\\DTO.csproj",
-      "packagesPath": "C:\\Users\\maigi\\.nuget\\packages\\",
-      "outputPath": "D:\\Study\\TDTU\\Software Engineering\\Final App Project\\AccuPhone\\DTO\\obj\\",
+      "projectPath": "C:\\Users\\taing\\Desktop\\Semester 2 22-23\\FinalSEApp\\Final-SE-App\\DTO\\DTO.csproj",
+      "packagesPath": "C:\\Users\\taing\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\taing\\Desktop\\Semester 2 22-23\\FinalSEApp\\Final-SE-App\\DTO\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\maigi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\taing\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

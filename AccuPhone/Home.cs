@@ -1,7 +1,12 @@
 ﻿using BUS;
 using GUI.Properties;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -12,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace GUI
 {
@@ -40,6 +46,8 @@ namespace GUI
             accountantName = acc.selectName().Rows[0][0].ToString();
             accountantID = (int) acc.selectID().Rows[0][0];
             warehouseID = (int) acc.selectWarehouse().Rows[0][0];
+            accountantEmail = email;
+            accountantPassword = password;
         }
 
         private void Home_Load(object sender, EventArgs e)
@@ -100,6 +108,7 @@ namespace GUI
             panelExport.Visible = false;
             panelImport.Visible = true;
             panelEDetails.Visible = false;
+            panelDashboard.Visible = false;
 
         }
 
@@ -115,6 +124,7 @@ namespace GUI
             panelImport.Visible = false;
             panelExport.Visible = true;
             panelEDetails.Visible = false;
+            panelDashboard.Visible = false;
             loadImportBill("Default");
         }
 
@@ -132,6 +142,9 @@ namespace GUI
             panelButtonE.Visible = false;
             panelButtonI.Visible = false;
             panelButtonR.Visible = false;
+
+            panelDashboard.Visible = true;
+            loadDashboard();
         }
 
 
@@ -609,7 +622,91 @@ namespace GUI
 
             resellerBill = new BUS_ResellerImportReceipt(resellerImportID, 0);
             resellerBill.updateStatus();
+        }
 
+        private void loadDashboard()
+        {
+            acc = new BUS_Accountant(accountantID, accountantName, accountantEmail, accountantPassword, warehouseID);
+            grdDashboard.DataSource = acc.selectProfit();
+
+            List<string> labels = new List<string>();
+            List<int> export = new List<int>();
+            List<int> import = new List<int>();
+            int totalExport = 0;
+            int totalImport = 0;
+
+            foreach (DataGridViewRow row in grdDashboard.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    labels.Add(row.Cells[1].Value.ToString().Substring(0, 9));
+                    export.Add((int) row.Cells[2].Value);
+                    import.Add((int) row.Cells[3].Value);
+                    totalExport += (int)row.Cells[2].Value;
+                    totalImport += (int)row.Cells[3].Value;
+
+                    Debug.WriteLine(row.Cells[1].Value.ToString());
+                }
+            }
+
+            cartesianChart1.Series = new ISeries[]{
+                new ColumnSeries<int>
+                {
+                    Values = export,
+                    Fill = new SolidColorPaint(SKColors.Blue),
+                    Stroke = null,
+                    Name = "Income: "
+
+                },
+                new ColumnSeries<int>
+                {
+                    Values = import,
+                    Fill = new SolidColorPaint(SKColors.Red),
+                    Stroke = null,
+                    Name = "Outcome: "
+                }
+            };
+
+            cartesianChart1.XAxes = new Axis[]
+            {
+                new Axis
+                {
+                    Labels = labels,
+                    TextSize = 20,
+                }
+            };
+            cartesianChart1.YAxes = new Axis[]
+            {
+                new Axis
+                {
+                    TextSize = 20,
+                }
+            };
+
+
+            pieChart1.Series = new ISeries[]
+            {
+                new PieSeries<int>
+                {
+                    Values = new List<int>{ totalExport },
+                    Name = "Income: ",
+                    Stroke = null,
+                    Fill = new SolidColorPaint(SKColors.Blue),
+                    DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    DataLabelsSize = 14,
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int>{ totalImport },
+                    Name = "Outcome: ",
+                    Fill = new SolidColorPaint(SKColors.Red),
+                    Stroke = null,
+                    DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    DataLabelsSize = 14,
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,                
+                }
+            };
         }
     }
 }

@@ -12,8 +12,8 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\maigi\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\maigi\\.nuget\\packages"
+      "C:\\Users\\taing\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\taing\\.nuget\\packages"
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
