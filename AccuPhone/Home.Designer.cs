@@ -103,6 +103,9 @@
             this.bApproveExport = new System.Windows.Forms.Button();
             this.fBillDetails = new System.Windows.Forms.FlowLayoutPanel();
             this.panelDashboard = new System.Windows.Forms.Panel();
+            this.pieChart1 = new LiveChartsCore.SkiaSharpView.WinForms.PieChart();
+            this.grdDashboard = new System.Windows.Forms.DataGridView();
+            this.cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMenu1)).BeginInit();
             this.panelMenuBar.SuspendLayout();
@@ -127,6 +130,8 @@
             this.panelExport.SuspendLayout();
             this.panelEDetails.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panelDashboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdDashboard)).BeginInit();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -859,9 +864,9 @@
             "Ascending by Date",
             "Descending by Price",
             "Ascending by Price"});
-            this.cbSorting.Location = new System.Drawing.Point(1074, 116);
+            this.cbSorting.Location = new System.Drawing.Point(1014, 116);
             this.cbSorting.Name = "cbSorting";
-            this.cbSorting.Size = new System.Drawing.Size(151, 28);
+            this.cbSorting.Size = new System.Drawing.Size(211, 28);
             this.cbSorting.TabIndex = 6;
             this.cbSorting.SelectedIndexChanged += new System.EventHandler(this.cbSorting_SelectedIndexChanged);
             // 
@@ -1090,12 +1095,45 @@
             // panelDashboard
             // 
             this.panelDashboard.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelDashboard.Controls.Add(this.pieChart1);
+            this.panelDashboard.Controls.Add(this.grdDashboard);
+            this.panelDashboard.Controls.Add(this.cartesianChart1);
             this.panelDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDashboard.Location = new System.Drawing.Point(0, 0);
             this.panelDashboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelDashboard.Name = "panelDashboard";
             this.panelDashboard.Size = new System.Drawing.Size(1280, 720);
             this.panelDashboard.TabIndex = 16;
+            // 
+            // pieChart1
+            // 
+            this.pieChart1.InitialRotation = 0D;
+            this.pieChart1.IsClockwise = true;
+            this.pieChart1.Location = new System.Drawing.Point(992, 453);
+            this.pieChart1.MaxAngle = 360D;
+            this.pieChart1.Name = "pieChart1";
+            this.pieChart1.Size = new System.Drawing.Size(269, 241);
+            this.pieChart1.TabIndex = 2;
+            this.pieChart1.Total = null;
+            // 
+            // grdDashboard
+            // 
+            this.grdDashboard.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grdDashboard.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.grdDashboard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdDashboard.Location = new System.Drawing.Point(280, 453);
+            this.grdDashboard.Name = "grdDashboard";
+            this.grdDashboard.RowHeadersWidth = 51;
+            this.grdDashboard.RowTemplate.Height = 29;
+            this.grdDashboard.Size = new System.Drawing.Size(696, 241);
+            this.grdDashboard.TabIndex = 1;
+            // 
+            // cartesianChart1
+            // 
+            this.cartesianChart1.Location = new System.Drawing.Point(280, 71);
+            this.cartesianChart1.Name = "cartesianChart1";
+            this.cartesianChart1.Size = new System.Drawing.Size(967, 358);
+            this.cartesianChart1.TabIndex = 0;
             // 
             // Home
             // 
@@ -1149,6 +1187,8 @@
             this.panelEDetails.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.panelDashboard.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdDashboard)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1230,5 +1270,8 @@
         private Label label22;
         private Label lblSubTotalExport;
         private Panel panelDashboard;
+        private DataGridView grdDashboard;
+        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
+        private LiveChartsCore.SkiaSharpView.WinForms.PieChart pieChart1;
     }
 }

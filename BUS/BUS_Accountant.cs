@@ -41,5 +41,10 @@ namespace BUS
         {
             return acc.selectWarehouse();
         }
+
+        public DataTable selectProfit()
+        {
+            return acc.selectProfit();
+        }
     }
 }
