@@ -3,6 +3,7 @@ using GUI;
 using OpenTK.Graphics.ES11;
 using System.Data;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace AccuPhone
 {
@@ -14,6 +15,15 @@ namespace AccuPhone
             InitializeComponent();
         }
 
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void fLogin_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
         private void fLogin_Load(object sender, EventArgs e)
         {
             bLogin.TabStop = false;
@@ -117,5 +127,11 @@ namespace AccuPhone
                 MessageBox.Show("The email is not exist");
             }
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }

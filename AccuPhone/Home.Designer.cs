@@ -106,6 +106,7 @@
             this.bApproveExport = new System.Windows.Forms.Button();
             this.fBillDetails = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAccountantDashboard = new System.Windows.Forms.Panel();
+            this.bPrintAccountant = new System.Windows.Forms.Button();
             this.pieChart1 = new LiveChartsCore.SkiaSharpView.WinForms.PieChart();
             this.grdDashboard = new System.Windows.Forms.DataGridView();
             this.cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
@@ -144,6 +145,7 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.pieChartImport = new LiveChartsCore.SkiaSharpView.WinForms.PieChart();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.bPrintPhoneDB = new System.Windows.Forms.Button();
             this.grdPhone = new System.Windows.Forms.DataGridView();
             this.bAccountantDB = new System.Windows.Forms.Button();
             this.bPhoneDB = new System.Windows.Forms.Button();
@@ -209,6 +211,7 @@
             this.panelHeader.Name = "panelHeader";
             this.panelHeader.Size = new System.Drawing.Size(1311, 68);
             this.panelHeader.TabIndex = 0;
+            this.panelHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseDown);
             // 
             // picMenu1
             // 
@@ -1179,6 +1182,7 @@
             // panelAccountantDashboard
             // 
             this.panelAccountantDashboard.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelAccountantDashboard.Controls.Add(this.bPrintAccountant);
             this.panelAccountantDashboard.Controls.Add(this.pieChart1);
             this.panelAccountantDashboard.Controls.Add(this.grdDashboard);
             this.panelAccountantDashboard.Controls.Add(this.cartesianChart1);
@@ -1189,14 +1193,25 @@
             this.panelAccountantDashboard.Size = new System.Drawing.Size(1280, 720);
             this.panelAccountantDashboard.TabIndex = 16;
             // 
+            // bPrintAccountant
+            // 
+            this.bPrintAccountant.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bPrintAccountant.Location = new System.Drawing.Point(537, 667);
+            this.bPrintAccountant.Name = "bPrintAccountant";
+            this.bPrintAccountant.Size = new System.Drawing.Size(191, 42);
+            this.bPrintAccountant.TabIndex = 3;
+            this.bPrintAccountant.Text = "Export To PDF";
+            this.bPrintAccountant.UseVisualStyleBackColor = true;
+            this.bPrintAccountant.Click += new System.EventHandler(this.bPrintAccountant_Click);
+            // 
             // pieChart1
             // 
             this.pieChart1.InitialRotation = 0D;
             this.pieChart1.IsClockwise = true;
-            this.pieChart1.Location = new System.Drawing.Point(992, 453);
+            this.pieChart1.Location = new System.Drawing.Point(992, 440);
             this.pieChart1.MaxAngle = 360D;
             this.pieChart1.Name = "pieChart1";
-            this.pieChart1.Size = new System.Drawing.Size(269, 241);
+            this.pieChart1.Size = new System.Drawing.Size(269, 254);
             this.pieChart1.TabIndex = 2;
             this.pieChart1.Total = null;
             // 
@@ -1205,18 +1220,18 @@
             this.grdDashboard.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grdDashboard.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.grdDashboard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdDashboard.Location = new System.Drawing.Point(280, 453);
+            this.grdDashboard.Location = new System.Drawing.Point(280, 440);
             this.grdDashboard.Name = "grdDashboard";
             this.grdDashboard.RowHeadersWidth = 51;
             this.grdDashboard.RowTemplate.Height = 29;
-            this.grdDashboard.Size = new System.Drawing.Size(696, 241);
+            this.grdDashboard.Size = new System.Drawing.Size(696, 220);
             this.grdDashboard.TabIndex = 1;
             // 
             // cartesianChart1
             // 
             this.cartesianChart1.Location = new System.Drawing.Point(280, 71);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(967, 358);
+            this.cartesianChart1.Size = new System.Drawing.Size(967, 343);
             this.cartesianChart1.TabIndex = 0;
             // 
             // panelImportReceipt
@@ -1592,9 +1607,9 @@
             // 
             this.groupBox10.Controls.Add(this.pieChartExport);
             this.groupBox10.Font = new System.Drawing.Font("Comfortaa", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox10.Location = new System.Drawing.Point(798, 99);
+            this.groupBox10.Location = new System.Drawing.Point(798, 80);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(443, 321);
+            this.groupBox10.Size = new System.Drawing.Size(443, 293);
             this.groupBox10.TabIndex = 2;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Export";
@@ -1603,11 +1618,11 @@
             // 
             this.pieChartExport.InitialRotation = 0D;
             this.pieChartExport.IsClockwise = true;
-            this.pieChartExport.Location = new System.Drawing.Point(24, 37);
+            this.pieChartExport.Location = new System.Drawing.Point(45, 37);
             this.pieChartExport.Margin = new System.Windows.Forms.Padding(4);
             this.pieChartExport.MaxAngle = 360D;
             this.pieChartExport.Name = "pieChartExport";
-            this.pieChartExport.Size = new System.Drawing.Size(392, 257);
+            this.pieChartExport.Size = new System.Drawing.Size(352, 234);
             this.pieChartExport.TabIndex = 0;
             this.pieChartExport.Total = null;
             // 
@@ -1615,9 +1630,9 @@
             // 
             this.groupBox9.Controls.Add(this.pieChartImport);
             this.groupBox9.Font = new System.Drawing.Font("Comfortaa", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox9.Location = new System.Drawing.Point(312, 96);
+            this.groupBox9.Location = new System.Drawing.Point(312, 77);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(443, 324);
+            this.groupBox9.Size = new System.Drawing.Size(443, 296);
             this.groupBox9.TabIndex = 1;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Import";
@@ -1626,24 +1641,36 @@
             // 
             this.pieChartImport.InitialRotation = 0D;
             this.pieChartImport.IsClockwise = true;
-            this.pieChartImport.Location = new System.Drawing.Point(31, 39);
+            this.pieChartImport.Location = new System.Drawing.Point(48, 39);
             this.pieChartImport.Margin = new System.Windows.Forms.Padding(4);
             this.pieChartImport.MaxAngle = 360D;
             this.pieChartImport.Name = "pieChartImport";
-            this.pieChartImport.Size = new System.Drawing.Size(373, 258);
+            this.pieChartImport.Size = new System.Drawing.Size(344, 235);
             this.pieChartImport.TabIndex = 0;
             this.pieChartImport.Total = null;
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.bPrintPhoneDB);
             this.groupBox8.Controls.Add(this.grdPhone);
             this.groupBox8.Font = new System.Drawing.Font("Comfortaa", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox8.Location = new System.Drawing.Point(312, 426);
+            this.groupBox8.Location = new System.Drawing.Point(312, 384);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(929, 276);
+            this.groupBox8.Size = new System.Drawing.Size(929, 325);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Phone Dashboard";
+            // 
+            // bPrintPhoneDB
+            // 
+            this.bPrintPhoneDB.Font = new System.Drawing.Font("Comfortaa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bPrintPhoneDB.Location = new System.Drawing.Point(377, 274);
+            this.bPrintPhoneDB.Name = "bPrintPhoneDB";
+            this.bPrintPhoneDB.Size = new System.Drawing.Size(191, 42);
+            this.bPrintPhoneDB.TabIndex = 4;
+            this.bPrintPhoneDB.Text = "Export To PDF";
+            this.bPrintPhoneDB.UseVisualStyleBackColor = true;
+            this.bPrintPhoneDB.Click += new System.EventHandler(this.bPrintPhoneDB_Click);
             // 
             // grdPhone
             // 
@@ -1652,7 +1679,7 @@
             this.grdPhone.Name = "grdPhone";
             this.grdPhone.RowHeadersWidth = 51;
             this.grdPhone.RowTemplate.Height = 29;
-            this.grdPhone.Size = new System.Drawing.Size(868, 212);
+            this.grdPhone.Size = new System.Drawing.Size(868, 224);
             this.grdPhone.TabIndex = 0;
             // 
             // bAccountantDB
@@ -1703,13 +1730,13 @@
             this.ClientSize = new System.Drawing.Size(1280, 720);
             this.Controls.Add(this.panelMenuBar);
             this.Controls.Add(this.panelHeader);
-            this.Controls.Add(this.panelDashboard);
             this.Controls.Add(this.panelPhoneDashboard);
-            this.Controls.Add(this.panelExportReceipt);
-            this.Controls.Add(this.panelReceipts);
-            this.Controls.Add(this.panelImportReceipt);
-            this.Controls.Add(this.panelImport);
             this.Controls.Add(this.panelAccountantDashboard);
+            this.Controls.Add(this.panelImportReceipt);
+            this.Controls.Add(this.panelExportReceipt);
+            this.Controls.Add(this.panelDashboard);
+            this.Controls.Add(this.panelReceipts);
+            this.Controls.Add(this.panelImport);
             this.Controls.Add(this.panelEDetails);
             this.Controls.Add(this.panelExport);
             this.Controls.Add(this.panelComfirm);
@@ -1903,5 +1930,7 @@
         private Button bAccountantDB;
         private Button bPhoneDB;
         private Panel panelDashboard;
+        private Button bPrintAccountant;
+        private Button bPrintPhoneDB;
     }
 }
