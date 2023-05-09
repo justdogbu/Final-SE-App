@@ -66,5 +66,10 @@ namespace DTO
             this.Quantity = Quantity;
             this.Price = Price;
         }
+
+        public DTO_ReceiptDetails(int ReceiptID)
+        {
+            this.ReceiptID = ReceiptID;
+        }
     }
 }

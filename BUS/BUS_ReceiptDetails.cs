@@ -15,7 +15,11 @@ namespace BUS
         {
 
         }
-
+        
+        public BUS_ReceiptDetails(int receiptID)
+        {
+            receiptDetails = new DAL_ReceiptDetails(receiptID);
+        }
         public BUS_ReceiptDetails(int receiptID, int phoneID, int quantity, int price)
         {
             receiptDetails = new DAL_ReceiptDetails(receiptID, phoneID, quantity, price);
@@ -25,6 +29,11 @@ namespace BUS
         public void addQuery()
         {
             receiptDetails.addQuery();
+        }
+
+        public DataTable selectReceiptDetail()
+        {
+            return receiptDetails.selectReceiptDetails();
         }
     }
 }

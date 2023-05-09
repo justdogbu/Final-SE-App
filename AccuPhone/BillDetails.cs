@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace GUI
         private int _BILLID;
         private Image _ICON;
         private int _ID;
+        private int _WAREHOUSEID;
         
 
         public string Name
@@ -46,7 +48,7 @@ namespace GUI
             set
             {
                 _PRICE = value;
-                lblPrice.Text = Price.ToString("C");
+                lblPrice.Text = Price.ToString("C", CultureInfo.CreateSpecificCulture("vi-VN"));
             }
         }
 
@@ -102,6 +104,16 @@ namespace GUI
             }
         }
 
-
+        public int WarehouseID
+        {
+            get
+            {
+                return _WAREHOUSEID;
+            }
+            set
+            {
+                _WAREHOUSEID = value;
+            }
+        }
     }
 }

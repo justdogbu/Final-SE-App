@@ -16,7 +16,7 @@ namespace DAL
 
         public DataTable selectReceipt()
         {
-            string str = "select * from ResellerImportReceiptDetails where ResellerReceiptID = " + receiptDetails._RESELLERRECEIPTDETAILSID;
+            string str = "select * from ResellerImportReceiptDetail where ResellerImportReceiptID = " + receiptDetails._RESELLERRECEIPTDETAILSID;
             return Connection.selectQuery(str);
         }
     }

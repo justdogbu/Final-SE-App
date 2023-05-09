@@ -59,7 +59,7 @@ namespace DAL
                     FROM Receipt
                 ) as temp
             WHERE
-                AccountantId = 1 AND
+                AccountantId =" + acc._ACCOUNTANTID + @"AND
                 DateCreated >= DATEADD(day, -7, GETDATE()) AND
                 DateCreated <= GETDATE()
             GROUP BY

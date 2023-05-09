@@ -11,9 +11,20 @@ namespace BUS
     public class BUS_Phone
     {
         DAL_Phone phone;
+
+        public BUS_Phone()
+        {
+            phone = new DAL_Phone();
+        }
+
         public BUS_Phone(string phoneName)
         {
             phone = new DAL_Phone(phoneName);
+        }
+
+        public BUS_Phone(int phoneId)
+        {
+            phone = new DAL_Phone(phoneId);
         }
 
         public int getPhoneID()
@@ -29,5 +40,32 @@ namespace BUS
             int price = (int)table.Rows[0][0];
             return price;
         }
+
+        public int countPhone()
+        {
+            DataTable table = phone.countPhone();
+            int count = (int)table.Rows[0][0];
+            return count;
+        }
+
+        public DataTable selectTable()
+        {
+            return phone.selectTable();
+        }
+
+        public string selectName()
+        {
+            DataTable table = phone.selectName();
+            if(table.Rows.Count > 0)
+            {
+                return table.Rows[0][0].ToString();
+            }
+            return "";
+        }
+
+        public DataTable selectPhone() {
+            return phone.selectPhone();
+        }
+        
     }
 }

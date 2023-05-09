@@ -12,8 +12,10 @@ using System.Data;
 using System.Diagnostics;
 using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +25,14 @@ namespace GUI
 {
     public partial class Home : Form
     {
+        PrintPreviewDialog printPreviewDialog1 = new PrintPreviewDialog();
+        PrintPreviewDialog printPreviewDialog2 = new PrintPreviewDialog();
+        PrintPreviewDialog printPreviewDialog3 = new PrintPreviewDialog();
+        PrintPreviewDialog printPreviewDialog4 = new PrintPreviewDialog();
+        PrintDocument printDocument1 = new PrintDocument();
+        PrintDocument printDocument2 = new PrintDocument();
+        PrintDocument printDocument3 = new PrintDocument();
+        PrintDocument printDocument4 = new PrintDocument();
         BUS_ExportReceiptDetails exportReceiptDetails;
         BUS_ExportReceipt exportReceipt;
         BUS_ResellerImportReceiptDetails resellerReceiptDetails;
@@ -48,10 +58,20 @@ namespace GUI
             warehouseID = (int) acc.selectWarehouse().Rows[0][0];
             accountantEmail = email;
             accountantPassword = password;
+            loadPhone();
         }
 
         private void Home_Load(object sender, EventArgs e)
         {
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog2.Document = printDocument2;
+            printPreviewDialog3.Document = printDocument3;
+            printPreviewDialog4.Document = printDocument4;
+            printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+            printDocument2.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage2);
+            printDocument3.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage3);
+            printDocument4.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage4);
+
             lblName.Text = accountantName;
             lblWarehouse.Text = "Warehouse " + warehouseID.ToString();
             panelButtonDB.Visible = true;
@@ -61,7 +81,9 @@ namespace GUI
             panelImport.Visible = false;
             panelComfirm.Visible = false;
             panelEDetails.Visible = false;
-
+            panelReceipts.Visible = false;
+            panelImportReceipt.Visible = false;
+            panelExportReceipt.Visible = false;
         }
 
 
@@ -108,8 +130,13 @@ namespace GUI
             panelExport.Visible = false;
             panelImport.Visible = true;
             panelEDetails.Visible = false;
+            panelAccountantDashboard.Visible = false;
+            panelReceipts.Visible = false;
+            panelImportReceipt.Visible = false;
+            panelExportReceipt.Visible = false;
             panelDashboard.Visible = false;
-
+            panelAccountantDashboard.Visible = false;
+            panelPhoneDashboard.Visible = false;
         }
 
         private void bExport_Click(object sender, EventArgs e)
@@ -124,8 +151,15 @@ namespace GUI
             panelImport.Visible = false;
             panelExport.Visible = true;
             panelEDetails.Visible = false;
+            panelAccountantDashboard.Visible = false;
+            panelReceipts.Visible = false;
+            panelImportReceipt.Visible = false;
+            panelExportReceipt.Visible = false;
             panelDashboard.Visible = false;
-            loadImportBill("Default");
+            panelAccountantDashboard.Visible = false;
+            panelPhoneDashboard.Visible = false;
+            cbSorting.Text = "Default";
+            //loadImportBill("Default");
         }
 
         private void bReceipts_Click(object sender, EventArgs e)
@@ -134,6 +168,13 @@ namespace GUI
             panelButtonE.Visible = false;
             panelButtonI.Visible = false;
             panelButtonR.Visible = true;
+            panelDashboard.Visible = false;
+            panelAccountantDashboard.Visible = false;
+            panelPhoneDashboard.Visible = false;
+            panelImportReceipt.Visible = false;
+            panelExportReceipt.Visible = false;
+
+            panelReceipts.Visible = true;
         }
 
         private void bDashboard_Click(object sender, EventArgs e)
@@ -143,8 +184,15 @@ namespace GUI
             panelButtonI.Visible = false;
             panelButtonR.Visible = false;
 
+            panelImport.Visible = false;
+            panelExport.Visible = false;
+            panelAccountantDashboard.Visible = true;
+            panelReceipts.Visible = false;
+            panelImportReceipt.Visible = false;
+            panelExportReceipt.Visible = false;
             panelDashboard.Visible = true;
-            loadDashboard();
+            panelAccountantDashboard.Visible = false;
+            panelPhoneDashboard.Visible = false;
         }
 
 
@@ -220,6 +268,7 @@ namespace GUI
                 fPanelProduct.Controls.Remove(control);
                 updateTotal();
             }
+            Debug.WriteLine(lblSubtotal.Text);
         }
 
         private void panelImport_Paint(object sender, PaintEventArgs e)
@@ -325,14 +374,14 @@ namespace GUI
         private void bComfirm_Click_1(object sender, EventArgs e)
         {
             receipt = new BUS_Receipt(0, 0, "", 0);
-            if(lblSubtotal.Text == "$NULL" || lblSubtotal.Text == "$0")
+            if(lblSubtotal.Text == "$NULL" || lblSubtotal.Text == "$0" || lblSubtotal.Text == "0 ₫")
             {
                 MessageBox.Show("You should update your cart first");
             }
             else
             {
                 int id = receipt.getReceiptID();
-                int total = int.Parse(lblSubtotal.Text.Substring(1, lblSubtotal.Text.Length - 1));
+                int total = int.Parse(lblSubtotal.Text.Replace(".", "").Replace("₫", ""));
 
                 receipt = new BUS_Receipt(id, total, "", accountantID);
                 receipt.addQuery();
@@ -370,8 +419,9 @@ namespace GUI
                 }
             }
 
-            lblTotal.Text = "$" + total.ToString();
-            lblSubtotal.Text = "$" + total.ToString();
+            lblTotal.Text = total.ToString("C", CultureInfo.CreateSpecificCulture("vi-VN"));
+
+            lblSubtotal.Text = total.ToString("C", CultureInfo.CreateSpecificCulture("vi-VN"));
         }
 
         private void cbSorting_SelectedIndexChanged(object sender, EventArgs e)
@@ -415,7 +465,6 @@ namespace GUI
 
             if (state == "Default")
             {
-                cbSorting.Text = "Default";
                 table = resellerBill.selectReceipt();
             }
             else if(state == "Descending by Date")
@@ -437,17 +486,19 @@ namespace GUI
 
             if (table != null)
             {
-                int number = resellerBill.countReceipt();
+                int number = table.Rows.Count ;
                 int billID;
                 int totalPrice;
                 DateTime date;
                 int resellerID;
                 string resellerName;
+                string payment;
                 for (int i = 0; i < number; i++)
                 {
                     billID = (int)table.Rows[i][0];
                     totalPrice = (int)table.Rows[i][1];
                     date = (DateTime)table.Rows[i][2];
+                    payment = (string)table.Rows[i][3];
                     resellerID = (int)table.Rows[i][5];
                     Debug.WriteLine(billID + " " + totalPrice + " " + date + " " + resellerID);
                     Bill bill = new Bill();
@@ -456,6 +507,7 @@ namespace GUI
                     bill._DATE = date;
                     reseller = new BUS_Reseller(resellerID);
                     bill._RESELLERNAME = reseller.getShopname();
+                    bill._PAYMENTMETHOD = payment;
                     bill.ApproveButtonClicked += UserControl_ApproveButtonClicked;
                     bill.Margin = new Padding(10, 10, 35, 35);
 
@@ -471,7 +523,7 @@ namespace GUI
             fBillDetails.Controls.Clear();
             panelExport.Visible = true;
             panelEDetails.Visible = false;
-            loadImportBill("Default");
+            //loadImportBill("Default");
         }
 
         private void bApproveExport_Click(object sender, EventArgs e)
@@ -501,7 +553,6 @@ namespace GUI
 
             fBillDetails.Controls.Clear();
             resellerReceiptDetails = new BUS_ResellerImportReceiptDetails(billID);
-            int num = resellerReceiptDetails.countReceipt();
             DataTable table = resellerReceiptDetails.selectReceipt();
             foreach(DataRow row in table.Rows)
             {
@@ -509,33 +560,17 @@ namespace GUI
                 int phoneID = (int) row[1];
                 int quantity = (int) row[2];
                 int price = (int) row[3];
-                switch (phoneID)
-                {
-                    case 1:
-                        billDetails.Icon = Resources.ip14;
-                        billDetails.Name = "iPhone 14";
-                        break;
-                    case 2:
-                        billDetails.Icon = Resources.redmi_note_8;
-                        billDetails.Name = "Redmi Note 8";
-                        break;
-                    case 3:
-                        billDetails.Icon = Resources.xiaomi_13;
-                        billDetails.Name = "Xiaomi 13";
-                        break;
-                    case 4:
-                        billDetails.Icon = Resources.a343;
-                        billDetails.Name = "Samsung Galaxy A34";
-                        break;
-                    case 5:
-                        billDetails.Icon = Resources.images_kv_en_purple_mo_1_png;
-                        billDetails.Name = "OPPO Find N2 Flip";
-                        break;
-                }
+                int warehouseID = (int)row[4];
+                string name = findPhoneName(phoneID);
+                Debug.WriteLine(phoneID);
+
+                billDetails.Icon = findPicture(phoneID);
+                billDetails.Name = name;
                 billDetails.BillID = billID;
                 billDetails.Number = quantity;
                 billDetails.Price = price;
                 billDetails.ID = phoneID;
+                billDetails.WarehouseID = warehouseID;
                 
                 fBillDetails.Controls.Add(billDetails);
             }
@@ -569,8 +604,8 @@ namespace GUI
                 }
             }
 
-            lblTotalExport.Text = total.ToString("C");
-            lblSubTotalExport.Text = total.ToString("C");
+            lblTotalExport.Text = total.ToString("C", CultureInfo.CreateSpecificCulture("vi-VN"));
+            lblSubTotalExport.Text = total.ToString("C", CultureInfo.CreateSpecificCulture("vi-VN"));
         }
 
         private bool isSufficient()
@@ -578,7 +613,7 @@ namespace GUI
             foreach(Control control in fBillDetails.Controls){
                 if(control is BillDetails bill && bill.Number > 0)
                 {
-                    warehouseProducts = new BUS_WarehouseProducts(warehouseID, bill.ID, 0);
+                    warehouseProducts = new BUS_WarehouseProducts(bill.WarehouseID, bill.ID, 0);
                     int quantity = warehouseProducts.selectQuantity();
                     if(bill.Number > quantity)
                     {
@@ -589,12 +624,23 @@ namespace GUI
             return true;
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picIP14_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private int createExportReceipt()
         {
             exportReceipt = new BUS_ExportReceipt(0, 0, "", 0);
             int id = exportReceipt.getReceiptID();
-            decimal totalDecimal = decimal.Parse(lblTotalExport.Text, NumberStyles.Currency);
-            int totalInt = Decimal.ToInt32(totalDecimal);
+            int totalInt = int.Parse(lblTotalExport.Text.Replace(".", "").Replace("₫", ""));
+            //decimal totalDecimal = decimal.Parse(lblTotalExport.Text, NumberStyles.Currency);
+            //int totalInt = Decimal.ToInt32(totalDecimal);
             Debug.WriteLine(accountantID);
             Debug.WriteLine(accountantName);
             Debug.WriteLine(id + " " + totalInt + " " + accountantID);
@@ -612,10 +658,10 @@ namespace GUI
                 {
                     resellerImportID = bill.BillID;
 
-                    warehouseProducts = new BUS_WarehouseProducts(warehouseID, bill.ID, bill.Number);
+                    warehouseProducts = new BUS_WarehouseProducts(bill.WarehouseID, bill.ID, bill.Number);
                     warehouseProducts.updateQuantity();
 
-                    exportReceiptDetails = new BUS_ExportReceiptDetails(id, bill.ID, bill.Number, bill.Price);
+                    exportReceiptDetails = new BUS_ExportReceiptDetails(accountantID, id, bill.ID, bill.Number, bill.Price);
                     exportReceiptDetails.addQuery();
                 }
             }
@@ -708,5 +754,788 @@ namespace GUI
                 }
             };
         }
+        private void LoadImageFromUrl(string imageUrl, out Image image)
+        {
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(imageUrl);
+            httpWebRequest.AllowWriteStreamBuffering = true;
+            httpWebRequest.Timeout = 30000;
+
+            HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+            Stream stream = httpWebResponse.GetResponseStream();
+            image = Image.FromStream(stream);
+
+            httpWebResponse.Close();
+        }
+
+        private void loadPhone()
+        {
+            BUS_Phone phones = new BUS_Phone("");
+            DataTable table = phones.selectTable();
+            foreach(DataRow row in table.Rows)
+            {
+                Phone phone = new Phone();
+                phone.ID = (int) row[0];
+                phone.Name = (string) row[1];
+                phone.Icon = findPicture(phone.ID);
+                phone.Price = (int) row[5];
+                phone.ImportButtonClicked += UserControl_ImportButtonCliked;
+                phone.Margin = new Padding(10, 10, 35, 35);
+
+                fpanelPhone.Controls.Add(phone);
+            }
+        }
+
+        private Image findPicture(int id)
+        {
+            if(id == 1)
+            {
+                return Resources.iPhone14;
+            }          
+            else if(id == 2)
+            {
+                return Resources.Samsung_Galaxy_S23;
+            }
+            else if(id == 3)
+            {
+                return Resources.realme_9;
+            }
+            else if(id == 4)
+            {
+                return Resources.realme_10;
+            }
+            else if (id == 5)
+            {
+                return Resources.Samsung_Galaxy_S22;
+            }
+            else if (id == 6)
+            {
+                return Resources.Samsung_Galaxy_Z_Flip4;
+            }
+            return Resources.lock_removebg_preview;
+        }
+
+        private void grdIR_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (grdIR.CurrentRow != grdIR.Rows[grdIR.Rows.Count - 1])
+            {
+                int id = (int)grdIR.CurrentRow.Cells[0].Value;
+                receiptDetails = new BUS_ReceiptDetails(id);
+                DataTable tableIRD = receiptDetails.selectReceiptDetail();
+                grdIRD.DataSource = tableIRD;
+                grdIRD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            
+
+        }
+
+        private void cbSorting2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = cbSorting2.SelectedItem.ToString();
+            loadImportReceipt(selectedValue);
+        }
+
+        private string findPhoneName(int id)
+        {
+            BUS_Phone phone = new BUS_Phone(id);
+            string name = phone.selectName();
+            return name;
+        }
+
+        private void rbL10_CheckedChanged(object sender, EventArgs e)
+        {
+            string state = cbSorting2.Text.ToString();
+            if(state == "") {
+                loadImportReceipt("Default");
+                return;
+            }
+            loadImportReceipt(state);
+        }
+
+        private void rbL100_CheckedChanged(object sender, EventArgs e)
+        {
+            string state = cbSorting2.Text.ToString();
+            if (state == "")
+            {
+                loadImportReceipt("Default");
+                return;
+            }
+            loadImportReceipt(state);
+        }
+
+        private void rbG100_CheckedChanged(object sender, EventArgs e)
+        {
+            string state = cbSorting2.Text.ToString();
+            if (state == "")
+            {
+                loadImportReceipt("Default");
+                return;
+            }
+            loadImportReceipt(state);
+        }
+
+        private void bPrintR_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog1.ShowDialog();
+        }
+
+        private void UserControl_ImportButtonCliked(object sender, EventArgs e)
+        {
+            panelImport.Visible = false;
+            panelExport.Visible = false;
+            panelComfirm.Visible = true;
+            Phone thisPhone = (sender as Phone);
+
+            foreach (Control control in fPanelProduct.Controls)
+            {
+                if (control is Product product && product.Name == thisPhone.Name)
+                {
+                    int num = int.Parse(product.Number);
+                    num += 1;
+                    product.Number = num.ToString();
+                    Debug.WriteLine("Exist");
+                    return;
+                }
+            }
+
+
+            Product phone = new Product();
+            phone.Name = thisPhone.Name;
+            //BUS_Phone ip14Phone = new BUS_Phone(iPhone14.Name);
+            phone.Price = thisPhone.Price;
+            phone.ID = thisPhone.ID;
+            phone.Icon = thisPhone.Icon;
+            phone.Number = "1";
+            phone.DeleteButtonClicked += UserControl_DeleteButtonClicked;
+            fPanelProduct.Controls.Add(phone);
+
+            phone.Index = fPanelProduct.Controls.IndexOf(phone);
+            updateTotal();
+        }
+
+        private void loadImportReceipt()
+        {
+            receipt = new BUS_Receipt(accountantID);
+
+
+            DataTable tableIR = receipt.getReceipt();
+            grdIR.DataSource = tableIR;
+            grdIR.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
+        }
+
+        private void loadImportReceipt(string state)
+        {
+            receipt = new BUS_Receipt(accountantID);
+            DataTable table = null;
+
+            if (state == "Default")
+            {
+                if(rbL10.Checked)
+                {
+                    table = receipt.sortLessThan10();
+                }
+                else if (rbL100.Checked)
+                {
+                    table = receipt.sortLessThan100();
+                }
+                else if (rbG100.Checked)
+                {
+                    table = receipt.sortGreaterThan100();
+                }
+                else
+                {
+                    table = receipt.getReceipt();
+                }
+            }
+            else if (state == "Descending by Date")
+            {
+                if (rbL10.Checked)
+                {
+                    table = receipt.sortDateDescLessThan10();
+                }
+                else if (rbL100.Checked)
+                {
+                    table = receipt.sortDateDescLessThan100();
+                }
+                else if (rbG100.Checked)
+                {
+                    table = receipt.sortDateDescGreaterThan100();
+                }
+                else
+                {
+                    table = receipt.sortDateDesc();
+                }
+            }
+            else if (state == "Ascending by Date")
+            {
+                if (rbL10.Checked)
+                {
+                    table = receipt.sortDateAscLessThan10();
+                }
+                else if (rbL100.Checked)
+                {
+                    table = receipt.sortDateAscLessThan100();
+                }
+                else if (rbG100.Checked)
+                {
+                    table = receipt.sortDateAscGreaterThan100();
+                }
+                else
+                {
+                    table = receipt.sortDateAsc();
+                }
+            }
+            else if (state == "Descending by Price")
+            {
+                if (rbL10.Checked)
+                {
+                    table = receipt.sortPriceDescLessThan10();
+                }
+                else if (rbL100.Checked)
+                {
+                    table = receipt.sortPriceDescLessThan100();
+                }
+                else if (rbG100.Checked)
+                {
+                    table = receipt.sortPriceDescGreaterThan100();
+                }
+                else
+                {
+                    table = receipt.sortPriceDesc();
+                }
+            }
+            else if (state == "Ascending by Price")
+            {
+                if (rbL10.Checked)
+                {
+                    table = receipt.sortPriceAscLessThan10();
+                }
+                else if (rbL100.Checked)
+                {
+                    table = receipt.sortPriceAscLessThan100();
+                }
+                else if (rbG100.Checked)
+                {
+                    table = receipt.sortPriceAscGreaterThan100();
+                }
+                else
+                {
+                    table = receipt.sortPriceAsc();
+                }
+            }
+
+            grdIR.DataSource = table;
+            grdIR.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+        }
+
+        private void loadExportReceipt(string state)
+        {
+            exportReceipt = new BUS_ExportReceipt(accountantID);
+            DataTable table = null;
+
+            if (state == "Default")
+            {
+                if (rbLT10.Checked)
+                {
+                    table = exportReceipt.sortLessThan10();
+                }
+                else if (rbLT100.Checked)
+                {
+                    table = exportReceipt.sortLessThan100();
+                }
+                else if (rbGT100.Checked)
+                {
+                    table = exportReceipt.sortGreaterThan100();
+                }
+                else
+                {
+                    table = exportReceipt.getReceipt();
+                }
+            }
+            else if (state == "Descending by Date")
+            {
+                if (rbLT10.Checked)
+                {
+                    table = exportReceipt.sortDateDescLessThan10();
+                }
+                else if (rbLT100.Checked)
+                {
+                    table = exportReceipt.sortDateDescLessThan100();
+                }
+                else if (rbGT100.Checked)
+                {
+                    table = exportReceipt.sortDateDescGreaterThan100();
+                }
+                else
+                {
+                    table = exportReceipt.sortDateDesc();
+                }
+            }
+            else if (state == "Ascending by Date")
+            {
+                if (rbLT10.Checked)
+                {
+                    table = exportReceipt.sortDateAscLessThan10();
+                }
+                else if (rbLT100.Checked)
+                {
+                    table = exportReceipt.sortDateAscLessThan100();
+                }
+                else if (rbGT100.Checked)
+                {
+                    table = exportReceipt.sortDateAscGreaterThan100();
+                }
+                else
+                {
+                    table = exportReceipt.sortDateAsc();
+                }
+            }
+            else if (state == "Descending by Price")
+            {
+                if (rbLT10.Checked)
+                {
+                    table = exportReceipt.sortPriceDescLessThan10();
+                }
+                else if (rbLT100.Checked)
+                {
+                    table = exportReceipt.sortPriceDescLessThan100();
+                }
+                else if (rbGT100.Checked)
+                {
+                    table = exportReceipt.sortPriceDescGreaterThan100();
+                }
+                else
+                {
+                    table = exportReceipt.sortPriceDesc();
+                }
+            }
+            else if (state == "Ascending by Price")
+            {
+                if (rbLT10.Checked)
+                {
+                    table = exportReceipt.sortPriceAscLessThan10();
+                }
+                else if (rbLT100.Checked)
+                {
+                    table = exportReceipt.sortPriceAscLessThan100();
+                }
+                else if (rbGT100.Checked)
+                {
+                    table = exportReceipt.sortPriceAscGreaterThan100();
+                }
+                else
+                {
+                    table = exportReceipt.sortPriceAsc();
+                }
+            }
+
+            grdER.DataSource = table;
+            grdER.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+        }
+
+        private void bPrintRD_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog2.ShowDialog();
+        }
+
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            printReceipt(e.Graphics);
+        }
+
+        private void printDocument1_PrintPage3(object sender, PrintPageEventArgs e)
+        {
+            printExportReceipt(e.Graphics);
+        }
+
+        private void printDocument1_PrintPage4(object sender, PrintPageEventArgs e)
+        {
+            printExportReceiptDetail(e.Graphics);
+        }
+        private void rbLT10_CheckedChanged(object sender, EventArgs e)
+        {
+            string state = cbSorting3.Text.ToString();
+            if (state == "")
+            {
+                loadExportReceipt("Default");
+                return;
+            }
+            loadExportReceipt(state);
+        }
+
+        private void rbLT100_CheckedChanged(object sender, EventArgs e)
+        {
+            string state = cbSorting3.Text.ToString();
+            if (state == "")
+            {
+                loadExportReceipt("Default");
+                return;
+            }
+            loadExportReceipt(state);
+        }
+
+        private void rbGT100_CheckedChanged(object sender, EventArgs e)
+        {
+            string state = cbSorting3.Text.ToString();
+            if (state == "")
+            {
+                loadExportReceipt("Default");
+                return;
+            }
+            loadExportReceipt(state);
+        }
+
+        private void cbSorting3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = cbSorting3.SelectedItem.ToString();
+            loadExportReceipt(selectedValue);
+        }
+
+        private void grdER_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (grdER.CurrentRow != grdER.Rows[grdER.Rows.Count - 1])
+            {
+                int id = (int)grdER.CurrentRow.Cells[0].Value;
+                exportReceiptDetails = new BUS_ExportReceiptDetails(id);
+                DataTable tableIRD = exportReceiptDetails.selectExportReceiptDetails();
+                grdERD.DataSource = tableIRD;
+                grdERD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            
+        }
+
+        private void printDocument1_PrintPage2(object sender, PrintPageEventArgs e)
+        {
+            printReceiptDetail(e.Graphics);
+        }
+
+        private void printReceipt(Graphics g)
+        {
+            int cellHeight = 40;
+            int cellWidthPadding = 5;
+            int cellHeightPadding = 5;
+
+            int y = 0;
+            int x = 0;
+
+            for (int i = 0; i < grdIR.RowCount; i++)
+            {
+                x = 0;
+                for (int j = 0; j < grdIR.ColumnCount; j++)
+                {
+                    Rectangle cellBounds = new Rectangle(x, y, grdIR.Columns[j].Width - cellWidthPadding, cellHeight - cellHeightPadding);
+
+                    g.DrawString(grdIR[j, i].FormattedValue.ToString(), grdIR.Font, Brushes.Black, cellBounds);
+
+                    x += grdIR.Columns[j].Width;
+                }
+                y += cellHeight;
+            }
+        }
+
+        private void bPrintER_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog3.ShowDialog();
+
+        }
+
+        private void bPrintERD_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog4.ShowDialog();
+        }
+
+        private void bImportPanel_Click(object sender, EventArgs e)
+        {
+            panelReceipts.Visible = false;
+            panelImportReceipt.Visible = true;
+
+            loadImportReceipt("Default");
+        }
+
+        private void bExportPanel_Click(object sender, EventArgs e)
+        {
+            panelReceipts.Visible = false;
+            panelExportReceipt.Visible = true;
+
+            loadExportReceipt("Default");
+        }
+
+        private void printReceiptDetail(Graphics g)
+        {
+            int cellHeight = 40;
+            int cellWidthPadding = 5;
+            int cellHeightPadding = 5;
+
+            int y = 0;
+            int x = 0;
+
+            for (int i = 0; i < grdIRD.RowCount; i++)
+            {
+                x = 0;
+                for (int j = 0; j < grdIRD.ColumnCount; j++)
+                {
+                    Rectangle cellBounds = new Rectangle(x, y, grdIRD.Columns[j].Width - cellWidthPadding, cellHeight - cellHeightPadding);
+
+                    g.DrawString(grdIRD[j, i].FormattedValue.ToString(), grdIRD.Font, Brushes.Black, cellBounds);
+
+                    x += grdIRD.Columns[j].Width;
+                }
+                y += cellHeight;
+            }
+        }
+
+        private void printExportReceipt(Graphics g)
+        {
+            int cellHeight = 40;
+            int cellWidthPadding = 5;
+            int cellHeightPadding = 5;
+
+            int y = 0;
+            int x = 0;
+
+            for (int i = 0; i < grdER.RowCount; i++)
+            {
+                x = 0;
+                for (int j = 0; j < grdER.ColumnCount; j++)
+                {
+                    Rectangle cellBounds = new Rectangle(x, y, grdER.Columns[j].Width - cellWidthPadding, cellHeight - cellHeightPadding);
+
+                    g.DrawString(grdER[j, i].FormattedValue.ToString(), grdER.Font, Brushes.Black, cellBounds);
+
+                    x += grdER.Columns[j].Width;
+                }
+                y += cellHeight;
+            }
+        }
+
+        private void bAccountantDB_Click(object sender, EventArgs e)
+        {
+            panelDashboard.Visible = false;
+            panelAccountantDashboard.Visible = true;
+
+            loadDashboard();
+        }
+
+        private void bPhoneDB_Click(object sender, EventArgs e)
+        {
+            loadPhoneTable();
+            loadPhonePie();
+            panelDashboard.Visible = false;
+            panelPhoneDashboard.Visible = true;
+        }
+
+        private void printExportReceiptDetail(Graphics g)
+        {
+            int cellHeight = 40;
+            int cellWidthPadding = 5;
+            int cellHeightPadding = 5;
+
+            int y = 0;
+            int x = 0;
+
+            for (int i = 0; i < grdERD.RowCount; i++)
+            {
+                x = 0;
+                for (int j = 0; j < grdERD.ColumnCount; j++)
+                {
+                    Rectangle cellBounds = new Rectangle(x, y, grdERD.Columns[j].Width - cellWidthPadding, cellHeight - cellHeightPadding);
+
+                    g.DrawString(grdERD[j, i].FormattedValue.ToString(), grdERD.Font, Brushes.Black, cellBounds);
+
+                    x += grdERD.Columns[j].Width;
+                }
+                y += cellHeight;
+            }
+        }
+
+        private void loadPhoneTable()
+        {
+            BUS_Phone phone = new BUS_Phone();
+            DataTable table = phone.selectPhone();
+
+            grdPhone.DataSource = table;
+            grdPhone.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+        }
+
+        private void loadPhonePie()
+        {
+            List<string> labels = new List<string>();
+            List<int> export = new List<int>();
+            List<int> import = new List<int>();
+
+            foreach (DataGridViewRow row in grdPhone.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    labels.Add(row.Cells[0].Value.ToString() + ":");
+                    if(row.Cells[2].Value != DBNull.Value)
+                    {
+                        import.Add((int)row.Cells[2].Value);
+                    }
+                    else
+                    {
+                        import.Add(0);
+                    }
+                    if(row.Cells[3].Value != DBNull.Value)
+                    {
+                        export.Add((int)row.Cells[3].Value);
+                    }
+                    else
+                    {
+                        export.Add(0);
+
+                    }
+                }
+            }
+
+            pieChartImport.Series = new ISeries[]
+            {
+
+                new PieSeries<int>
+                {
+                    Values = new List<int> { import[0] } ,
+                    Name = labels[0],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(import[0]),
+                    Fill = new SolidColorPaint(SKColors.Blue),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { import[1] } ,
+                    Name = labels[1],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(import[1]),
+                    Fill = new SolidColorPaint(SKColors.Red),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { import[2] } ,
+                    Name = labels[2],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(import[2]),
+                    Fill = new SolidColorPaint(SKColors.Purple),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { import[3] } ,
+                    Name = labels[3],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(import[3]),
+                    Fill = new SolidColorPaint(SKColors.Yellow),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { import[4] } ,
+                    Name = labels[4],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(import[4]),
+                    Fill = new SolidColorPaint(SKColors.Brown),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { import[5] } ,
+                    Name = labels[5],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(import[5]),
+                    Fill = new SolidColorPaint(SKColors.Green),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+            };
+            pieChartExport.Series = new ISeries[]
+            {
+
+                new PieSeries<int>
+                {
+                    Values = new List<int> { export[0] } ,
+                    Name = labels[0],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(export[0]),
+                    Fill = new SolidColorPaint(SKColors.Blue),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { export[1] } ,
+                    Name = labels[1],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(export[1]),
+                    Fill = new SolidColorPaint(SKColors.Red),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { export[2] } ,
+                    Name = labels[2],
+                    Stroke = null,                    
+                    IsVisible = Convert.ToBoolean(export[2]),
+                    Fill = new SolidColorPaint(SKColors.Purple),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { export[3] } ,
+                    Name = labels[3],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(export[3]),
+                    Fill = new SolidColorPaint(SKColors.Yellow),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { export[4] } ,
+                    Name = labels[4],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(export[4]),
+                    Fill = new SolidColorPaint(SKColors.Brown),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+                new PieSeries<int>
+                {
+                    Values = new List<int> { export[5] } ,
+                    Name = labels[5],
+                    Stroke = null,
+                    IsVisible = Convert.ToBoolean(export[5]),
+                    Fill = new SolidColorPaint(SKColors.Green),
+                    //DataLabelsPaint = new SolidColorPaint(SKColors.White),
+                    //DataLabelsSize = 14,
+                    //DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                },
+            };
+
+        }
+
+
     }
 }

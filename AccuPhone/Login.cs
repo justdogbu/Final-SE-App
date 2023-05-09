@@ -1,5 +1,6 @@
 using BUS;
 using GUI;
+using OpenTK.Graphics.ES11;
 using System.Data;
 using System.Diagnostics;
 
@@ -19,10 +20,32 @@ namespace AccuPhone
             bLogin.FlatStyle = FlatStyle.Flat;
             bLogin.FlatAppearance.BorderSize = 0;
             bLogin.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+
+            txtUserEmail.KeyPress += new KeyPressEventHandler(txtEmail_KeyPress);
+            txtPassword.KeyPress += new KeyPressEventHandler(txtPassword_KeyPress);
+            
         }
 
-  
         
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char) Keys.Enter) {
+                bLogin_Click(sender, e);
+            }
+        }
+        
+        private void txtEmail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char) Keys.Enter)
+            {
+                bLogin_Click(sender, e);
+            }
+            if (e.KeyChar == (char)Keys.Tab)
+            {
+                txtPassword_Click(sender, e);
+            }
+        }
+
 
         private void txtPassword_Leave(object sender, EventArgs e)
         {
@@ -37,6 +60,7 @@ namespace AccuPhone
 
         private void txtPassword_Click(object sender, EventArgs e)
         {
+            txtPassword.Focus();
             panelPassword.BackColor = Color.DeepSkyBlue;
             if (txtPassword.Text == "Type your password")
             {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,9 @@ namespace GUI
         private DateTime Date;
         private int BillID;
         private int Total;
+        private int WarehouseID;
         private string ResellerName;
+        private string PaymentMethod;
 
        
         public DateTime _DATE
@@ -66,7 +69,7 @@ namespace GUI
             set
             {
                 Total = value;
-                lblTotal.Text = value.ToString("C");
+                lblTotal.Text = value.ToString("C", CultureInfo.CreateSpecificCulture("vi-VN"));
 
             }
         }
@@ -80,6 +83,31 @@ namespace GUI
             {
                 ResellerName = value;
                 lblReseller.Text = value.ToUpper();
+            }
+        }
+
+        public string _PAYMENTMETHOD
+        {
+            get
+            {
+                return PaymentMethod;
+            }
+            set
+            {
+                PaymentMethod = value;
+                lblPayment.Text = value.ToUpper();
+            }
+        }
+
+        public int _WAREHOUSEID
+        {
+            get
+            {
+                return WarehouseID;
+            }
+            set
+            {
+                WarehouseID = value;
             }
         }
 

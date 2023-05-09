@@ -8,8 +8,7 @@ namespace DTO
 {
     public class DTO_ExportReceiptDetails
     {
-        private int ReceiptID, PhoneID, Quantity, Price;
-
+        private int ReceiptID, PhoneID, Quantity, Price, ResellerID;
         public int _RECEIPTID
         {
             get
@@ -58,13 +57,31 @@ namespace DTO
             }
         }
 
-
-        public DTO_ExportReceiptDetails(int ReceiptID, int PhoneID, int Quantity, int Price)
+        public int _RESELLERID
         {
+            get
+            {
+                return ResellerID;
+            }
+            set
+            {
+                ResellerID = value;
+            }
+        }
+
+
+        public DTO_ExportReceiptDetails(int ResellerID, int ReceiptID, int PhoneID, int Quantity, int Price)
+        {
+            this.ResellerID = ResellerID;
             this.ReceiptID = ReceiptID;
             this.PhoneID = PhoneID;
             this.Quantity = Quantity;
             this.Price = Price;
+        }
+
+        public DTO_ExportReceiptDetails(int receiptID)
+        {
+            this.ReceiptID = receiptID;
         }
     }
 }

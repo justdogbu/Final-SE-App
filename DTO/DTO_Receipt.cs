@@ -68,5 +68,10 @@ namespace DTO
             this.DateCreated = DateCreated;
             this.AccountantID = AccountantID;
         }
+
+        public DTO_Receipt(int AccountantID) 
+        {
+            this.AccountantID = AccountantID;
+        }
     }
 }

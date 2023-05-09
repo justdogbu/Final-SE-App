@@ -16,36 +16,36 @@ namespace DAL
 
         public DataTable selectReceipt()
         {
-            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 0";
+            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 1";
             return Connection.selectQuery(str);
         }
 
         public DataTable sortDateAsc()
         {
-            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 0 ORDER BY DateCreated ASC";
+            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 1 ORDER BY DateCreated ASC";
             return Connection.selectQuery(str);
         }
 
         public DataTable sortDateDesc()
         {
-            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 0 ORDER BY DateCreated DESC";
+            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 1 ORDER BY DateCreated DESC";
             return Connection.selectQuery(str);
         }
 
         public DataTable sortPriceAsc()
         {
-            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 0 ORDER BY TotalPrice ASC";
+            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 1 ORDER BY TotalPrice ASC";
             return Connection.selectQuery(str);
         }
         public DataTable sortPriceDesc()
         {
-            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 0 ORDER BY TotalPrice DESC";
+            string str = "select * from ResellerImportReceipt where DeliveryStatusId = 1 ORDER BY TotalPrice DESC";
             return Connection.selectQuery(str);
         }
 
         public void updateStatus()
         {
-            string str = "update ResellerImportReceipt set DeliveryStatusId = 1 where ResellerReceiptID = " + receipt._RESELLERRECEIPTID;
+            string str = "update ResellerImportReceipt set DeliveryStatusId = 2 where ResellerImportReceiptID = " + receipt._RESELLERRECEIPTID;
             Connection.actionQuery(str);
         }
     }

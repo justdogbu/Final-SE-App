@@ -486,19 +486,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\taing\\.nuget\\packages\\": {}
+    "C:\\Users\\maigi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\taing\\Desktop\\Semester 2 22-23\\FinalSEApp\\Final-SE-App\\DAL\\DAL.csproj",
+      "projectUniqueName": "D:\\SE project\\Final-SE-App\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "C:\\Users\\taing\\Desktop\\Semester 2 22-23\\FinalSEApp\\Final-SE-App\\DAL\\DAL.csproj",
-      "packagesPath": "C:\\Users\\taing\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\taing\\Desktop\\Semester 2 22-23\\FinalSEApp\\Final-SE-App\\DAL\\obj\\",
+      "projectPath": "D:\\SE project\\Final-SE-App\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\maigi\\.nuget\\packages\\",
+      "outputPath": "D:\\SE project\\Final-SE-App\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\taing\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\maigi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -512,8 +512,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\taing\\Desktop\\Semester 2 22-23\\FinalSEApp\\Final-SE-App\\DTO\\DTO.csproj": {
-              "projectPath": "C:\\Users\\taing\\Desktop\\Semester 2 22-23\\FinalSEApp\\Final-SE-App\\DTO\\DTO.csproj"
+            "D:\\SE project\\Final-SE-App\\DTO\\DTO.csproj": {
+              "projectPath": "D:\\SE project\\Final-SE-App\\DTO\\DTO.csproj"
             }
           }
         }
@@ -549,7 +549,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
       }
     }
   }
