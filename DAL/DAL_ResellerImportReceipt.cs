@@ -46,7 +46,9 @@ namespace DAL
         public void updateStatus()
         {
             string str = "update ResellerImportReceipt set DeliveryStatusId = 2 where ResellerImportReceiptID = " + receipt._RESELLERRECEIPTID;
+            string str2 = "update ResellerImportReceipt set PaymentStatus = 1 where ResellerImportReceiptID = " + receipt._RESELLERRECEIPTID;
             Connection.actionQuery(str);
+            Connection.actionQuery(str2);
         }
     }
     
