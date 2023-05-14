@@ -70,11 +70,11 @@ namespace DTO
         }
 
 
-        public DTO_ExportReceiptDetails(int ResellerID, int ReceiptID, int PhoneID, int Quantity, int Price)
+        public DTO_ExportReceiptDetails(int ResellerID, int PhoneID, int ReceiptID, int Quantity, int Price)
         {
             this.ResellerID = ResellerID;
-            this.ReceiptID = ReceiptID;
             this.PhoneID = PhoneID;
+            this.ReceiptID = ReceiptID;
             this.Quantity = Quantity;
             this.Price = Price;
         }

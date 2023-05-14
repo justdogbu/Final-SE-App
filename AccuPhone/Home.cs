@@ -38,6 +38,7 @@ namespace GUI
         PrintDocument printDocument2 = new PrintDocument();
         PrintDocument printDocument3 = new PrintDocument();
         PrintDocument printDocument4 = new PrintDocument();
+        BUS_ResellerStorage resellerStorage;
         BUS_ExportReceiptDetails exportReceiptDetails;
         BUS_ExportReceipt exportReceipt;
         BUS_ResellerImportReceiptDetails resellerReceiptDetails;
@@ -515,13 +516,14 @@ namespace GUI
                     totalPrice = (int)table.Rows[i][1];
                     date = (DateTime)table.Rows[i][2];
                     payment = (string)table.Rows[i][3];
-                    resellerID = (int)table.Rows[i][5];
+                    resellerID = (int)table.Rows[i][6];
                     Debug.WriteLine(billID + " " + totalPrice + " " + date + " " + resellerID);
                     Bill bill = new Bill();
                     bill._BILLID = billID;
                     bill._TOTAL = totalPrice;
                     bill._DATE = date;
                     reseller = new BUS_Reseller(resellerID);
+                    bill._RESELLERID = resellerID;
                     bill._RESELLERNAME = reseller.getShopname();
                     bill._PAYMENTMETHOD = payment;
                     bill.ApproveButtonClicked += UserControl_ApproveButtonClicked;
@@ -562,7 +564,7 @@ namespace GUI
             }
         }
 
-        private void loadBillDetails(int billID)
+        private void loadBillDetails(int billID, int resellerID)
         {
             panelExport.Visible = false;
             panelEDetails.Visible = true;
@@ -585,6 +587,7 @@ namespace GUI
                 billDetails.BillID = billID;
                 billDetails.Number = quantity;
                 billDetails.Price = price;
+                billDetails.ResellerID = resellerID;
                 billDetails.ID = phoneID;
                 billDetails.WarehouseID = warehouseID;
                 
@@ -599,7 +602,7 @@ namespace GUI
             Bill control = sender as Bill;
             if (control != null)
             {
-                loadBillDetails(control._BILLID);
+                loadBillDetails(control._BILLID, control._RESELLERID);
             }
         }
         private void panelComfirm_Paint(object sender, PaintEventArgs e)
@@ -677,8 +680,19 @@ namespace GUI
                     warehouseProducts = new BUS_WarehouseProducts(bill.WarehouseID, bill.ID, bill.Number);
                     warehouseProducts.updateQuantity();
 
-                    exportReceiptDetails = new BUS_ExportReceiptDetails(accountantID, id, bill.ID, bill.Number, bill.Price);
+                    exportReceiptDetails = new BUS_ExportReceiptDetails(bill.ResellerID, bill.ID, id, bill.Number, bill.Price);
                     exportReceiptDetails.addQuery();
+
+                    resellerStorage = new BUS_ResellerStorage(bill.ResellerID, bill.ID, bill.Number);
+                    int stock = resellerStorage.selectQuantity();
+                    if (stock == -1)
+                    {
+                        resellerStorage.addQuery();
+                    }
+                    else
+                    {
+                        resellerStorage.updateQuery();
+                    }
                 }
             }
 

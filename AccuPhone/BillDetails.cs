@@ -24,6 +24,7 @@ namespace GUI
         private Image _ICON;
         private int _ID;
         private int _WAREHOUSEID;
+        private int _RESELLERID;
         
 
         public string Name
@@ -113,6 +114,18 @@ namespace GUI
             set
             {
                 _WAREHOUSEID = value;
+            }
+        }
+
+        public int ResellerID
+        {
+            get
+            {
+                return _RESELLERID;
+            }
+            set
+            {
+                _RESELLERID = value;
             }
         }
     }

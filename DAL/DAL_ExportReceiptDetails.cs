@@ -12,9 +12,9 @@ namespace DAL
     public class DAL_ExportReceiptDetails
     {
         DTO_ExportReceiptDetails receiptDetails;
-        public DAL_ExportReceiptDetails(int resellerID, int receiptID, int phoneID, int quantity, int price)
+        public DAL_ExportReceiptDetails(int resellerID, int phoneID, int receiptID, int quantity, int price)
         {
-            receiptDetails = new DTO_ExportReceiptDetails(resellerID, receiptID, phoneID, quantity, price);
+            receiptDetails = new DTO_ExportReceiptDetails(resellerID, phoneID, receiptID, quantity, price);
         }
 
         public DAL_ExportReceiptDetails(int receiptID)

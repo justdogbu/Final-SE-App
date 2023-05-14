@@ -19,9 +19,9 @@ namespace BUS
         {
             receiptDetails = new DAL_ExportReceiptDetails(receiptID);
         }
-        public BUS_ExportReceiptDetails(int resellerID, int receiptID, int phoneID, int quantity, int price)
+        public BUS_ExportReceiptDetails(int resellerID, int phoneID,  int receiptID, int quantity, int price)
         {
-            receiptDetails = new DAL_ExportReceiptDetails(resellerID, receiptID, phoneID, quantity, price);
+            receiptDetails = new DAL_ExportReceiptDetails(resellerID, phoneID, receiptID, quantity, price);
         }
 
 

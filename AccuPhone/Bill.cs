@@ -32,6 +32,7 @@ namespace GUI
         private int WarehouseID;
         private string ResellerName;
         private string PaymentMethod;
+        private int ResellerID;
 
        
         public DateTime _DATE
@@ -108,6 +109,18 @@ namespace GUI
             set
             {
                 WarehouseID = value;
+            }
+        }
+
+        public int _RESELLERID
+        {
+            get
+            {
+                return ResellerID;
+            }
+            set
+            {
+                ResellerID = value;
             }
         }
 
